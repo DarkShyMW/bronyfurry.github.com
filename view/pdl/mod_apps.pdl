@@ -1,0 +1,8 @@
+[region=aside]
+[widget=appstore][/widget]
+[widget=appcategories][/widget]
+[/region]
+[region=right_aside]
+[widget=notifications][/widget]
+[widget=newmember][/widget]
+[/region]

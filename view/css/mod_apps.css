@@ -1,0 +1,25 @@
+.app-container {
+	float: left;
+	width: 177px;
+	margin: 35px;
+}
+
+.app-name {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin: 10px 0px;
+}
+
+.app-icon {
+	display: table-cell;
+	table-layout: fixed;
+	vertical-align: top;
+}
+
+.app-info {
+	display: table-cell;
+	table-layout: fixed;
+	vertical-align: top;
+	padding-left: 10px;
+}

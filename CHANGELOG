@@ -1,0 +1,2740 @@
+Hubzilla 7.0.3 (2022-02-10)
+	- Allow to override the charset for the PDO connection string via $db_charset in .htconfig.php
+
+
+Hubzilla 7.0.2 (2022-02-09)
+	- Update french templates
+	- Add charset to the PDO connection strings
+	- Introduce delete keytype for get_activitystreams_key()
+	- Fix PHP error in Daemon/Externals
+	- Improved actor cache handling
+	- Implement manual fetch of packed local links
+	- Add JSalmon data to the meta field instead of data in Lib/ActivityStreams
+	- Fix some PHP8.1 deprecation warnings
+	- Fix delivery report for likes not found in some cases
+	- Allow zotfinger to recurse through all known hublocs if the one we got does not exist (404) or got removed (410)
+	- Diaspora: improve relaying of comments
+	- Fix regression in mod hcard
+	- Add the LD signature in Daemon/Notifier in case where there is no signed data available
+	- Prevent zot6 packet being saved as AP raw message
+	- Attach iconfig to the activity instead of the activity object
+
+	Addons
+	- Pubcrawl: make sure the sys channel falls through the app installed check
+	- Pubcrawl: improve local delivery of shared inbox items
+
+
+Hubzilla 7.0.1 (2022-01-28)
+	- Fix removing contacts from privacy groups in the contact edit modal
+	- Fix escape_tags() messing with URLs in actor_store()
+	- Fix pagination in the cards module if a category is selected
+	- Remove unused entries in webfinger
+	- Remove deprecated mail app from apps
+	- Set item_hidden for forum comment announces
+	- Fix relaying of signed messages for activitypub
+	- Fix contact role permissions not re-assigned if the role permission has changed
+	- Fix default channel role not set in rare cases
+
+	Addons
+	- Pubcrawl: fix webfinger not returning the fetched URL
+	- Pubcrawl: improved queue handling for rejected deliveries
+
+
+Hubzilla 7.0 (2022-01-21)
+	- Provide theme_color and background_color in App::$theme_info for usage in page meta and manifest
+	- PWA improvements according to lighthouse
+	- Refactor mod profile_photo
+	- Remove core legacy mail code
+	- Set session samesite cookie flag
+	- Improve toc bbcode for more flexible usecases
+	- Deprecate include/group in favor of Lib/AccessList
+	- Deprecate AccessList::widget()
+	- Mark forum channel profile images with a small icon in the timelines
+	- Improve privacy groups UI/UX
+	- Do not show connections widget if there are no connections
+	- Remove suggestions widget from various modules
+	- Provide guest access links for private resources in lockview
+	- Improve pconfig syncing
+	- deprecate include/group in favor of Lib/AccessList
+	- Implement background deleting of items in contact_remove()
+	- Refactor guest access tokens for better usability and provide quick access
+	- Refactor permissions handling
+	- Improved poll rendering
+
+	Bugfixes
+	- Fix items not deleted on remote channel purge
+	- Fix plink in post_activity_item()
+	- Fix multiple update_poll() calls dismissed in queueworker
+	- Fix blocked or ignored contacts displayed in connections
+	- Fix polls for forum channels
+
+	Addons:
+	- Legacy mail: remove
+	- Deprecate include/group in favor of Lib/AccessList
+	- Pubcrawl: support pleroma end time for polls
+	- Pubcrawl: slightly adjust the way we check mastodon direct messages
+	- Socialauth: scope support and improvements
+
+
+Hubzilla 6.4.2 (2021-12-14)
+	- Fix issue in mod sse_bs where returning message id's were assumed to be base64 encoded
+	- Fix announce activity type not registered as response activity
+
+
+Hubzilla 6.4.1 (2021-12-03)
+	- Fix hubloc_site_id in fix_system_urls() on detected site rename events
+	- Fix duplicate deliveries if duplicate hublocs available
+	- Redesign profile vcard for improved responsive handling
+	- Fix profile photos not stored in profile photo folder
+	- Maximum width of content region is now calculated in rem for improved responsive handling
+	- Fix likes notices emited allthough they are disabled
+	- Fix page not reloaded after comment/like in mod photos - issue #1651
+	- Port improved Lib/HttpMeta from zap
+	- Improved responsive aside
+
+
+Hubzilla 6.4 (2021-11-09)
+	- Automatically connect the invitee with the inviting channel
+	- Use the composer version of urlify
+	- Implement zip file import of exported items from mod uexport
+	- Start sending supported protocols with the actor object
+	- Split up manual item export to separate sections
+	- Serve w3.org jsonld documents locally - issue #1637
+	- Support IDNA URL embedding
+	- Improve handling of re-installed hubs in lib HTTPSig
+	- BBcode support for notes widget/app
+	- Implement a force flag for HTTPSig::get_key()
+	- Update composer libs
+	- Use Libzot::fetch_conversation for manual content import
+	- Implement optional force argument in Libzot::process_delivery
+	- Improve german doco
+	- Move sync logic for apps to mod appman
+	- Provide sync for system apps
+	- Update certificates
+	- Return status code 410 if a channel is deleted
+	- Add optional argument to channelx_by_* functions to allow inclusion of removed channels
+	- Improve file upload performance
+	- Introduce progress tracking for channel cloning via network (not compatible with cloning from older versions)
+	- Improve channel delete performance by moving some actions to background tasks
+	- Introduce all in one channel cloning via network (not compatible with cloning from older versions)
+	- Rename zotfeed to outbox but keep an alias for compatibility
+	- Implement apps un-starring from the app bin via drag and drop
+	- Re-implement the externals daemon
+	- Add zot6 specific handling to onepoll
+	- Implement the top option in items_fetch() which will only return top level items
+	- Add notices tab to HQ widget
+	- Improve mod manage performance
+	- Add option to mark all notices of a thread read if a notice of the thread is clicked (default true)
+	- Provide a get_cached_actor_provider hook and improve the author/owner handling in Libzot::import()
+
+	Bugfixes
+	- Fix issue where remote channels could not create wiki pages due to wron permission check - issue #1640
+	- Fix dutch registration email template
+	- Fix selection of invite template
+	- Fix too restrictive email check in mod invite
+	- Fix photos and albums ActivityStreams 2 representation
+	- Fix keys always fetched from network in lib HTTPSig for some AP implementations
+	- Fix album display of root directory
+	- Fix onepoll importing to deleted channels
+	- Fix rendering of image tags in codeblocks
+	- Fix webfinger and xrd providing results for removed channels
+	- Fix alt_pager() providing too many arguments
+	- Fix drop_query_params() if no query params are provided
+	- Fix duplicate entries for dead hubs in delivery report
+	- Fix site lookup
+	- Fix mod locs displaying drop icons for local channels
+	- Fix multiple issues with propagating deletes of cloned channels
+	- Fix apps can be draged outsite of drop areas
+	- Fix removed channels counted in max id check
+	- Fix api_auth not fetching the id if it was not cached
+	- Fix public stream unseen notifications displayed allthough the app is not installed
+	- Fix possible storage conversion stuck on file save error
+	- Fix notification panel collapsed state not saved if closed manually
+	- Fix find_best_identity() dismissing AP hublocs
+	- Fix likes and commments on direct messages mixed up in notices
+	- Fix rewrite of links to resources in body fails if nicknames of clones differ - issue #1507
+	- Fix syncing outdated data due to profile sync done before the fields were updated
+	- Fix $desturl set to wrong value (null)
+
+	Addons
+	- Cart: add settings URL to the apd file
+	- Diaspora: remove deprecated included
+	- Cart: remove deprecated include
+	- Openid: remove library/urlify in favor of composer installed versions
+	- Pubcrawl: provide tags indicating the supported protocols
+	- Pubcrawl: if we do not get an uuid, create a v5 uuid from the mid
+	- Cart: fix rendering regressions from bootstrap5 upgrade
+	- Upgrade_info: fix dismiss button
+	- Pubcrawl: move fetch_provider from core to addon
+	- Diaspora: fix regression in fetch_provider
+	- Content_import: fix syntax error
+	- Queueworker: update priorities
+	- Pubcrawl: only lookup announce author if we actually deal with an announce
+	- Pubcrawl: make sure we have the best identity before we make the abook lookup
+	- Pubcrawl: outbox moved to core
+	- Diaspora: implement the get_cached_actor_provider hook
+
+
+Hubzilla 6.2.2 (2021-10-03)
+	- Fix an issue which could lead to loss of photos under certain conditions
+
+
+Hubzilla 6.2.1 (2021-09-16)
+	- Fix regression introduced in 6.2 where Diaspora comments on Hubzilla posts were not relayed
+	- Fix wrong variable used for refresh under certain conditions
+	- Fix issue where summary tag was processed in cleanup_bbcode() while it shoud not
+	- Fix issue where profile name change was not applied if done from non primary location
+	- Fix spacing issue for collapsed pinned apps with an image
+	- Fix language selector reloading the page if not clicking exactly the icon
+	- Fix regression displaying bootstrap modals introduced in 6.2
+
+
+Hubzilla 6.2 (2021-09-08)
+	- Deprecate the custom highlight [hl] bbcode in favor of [mark] which is a html5 standard
+	- Check post_mail permission when receiving a direct message
+	- Refactor actor store and cache mechanism
+	- Add optional strict flag (false) to base64url_decode() which is passed on to base64_decode()
+	- Update russian translations
+	- Add optional force flag (false) to Activity::actor_store()
+	- Improved icon lookup for actor objects
+	- Improved desktop notifications
+	- Make Hubzilla installable as PWA in supported browsers
+	- Capitalized widget titles (redbasic)
+	- Make images loaded counter showing % loaded instead of actual image count
+	- Deprecate optional channel menu in favor of extended app bin
+	- Implement infrastructure to provide an app install widget for modules
+	- Implement app descriptions
+	- Implement app drag and drop sorting
+	- Implement app drag and drop pinning/starring
+	- Update polish translations
+	- Update to bootstrap 5 and adjust templates
+
+	Bugfixes
+	- Fix anonymous comments for cards and articles
+	- Resolve regex interference between contact and channel autocomplete
+	- Fix files stored in wrong directory when uploaded in the photo module
+	- Fix records with empty public key selected for OWA
+	- Fix import_author_zot failing if primary is both dead and unknown - issue #1599
+	- Fix regression with bookmarks
+	- Fix pubstream notifications link redirecting to mod hq when not local
+	- Cleanup legacy mail leftovers - issue #1595
+	- Fix getimagesize() called with empty path
+	- Fix display issue caused by redundant closing div tag
+
+	Addons
+	- Pubcrawl: fix post to forum - issue #159
+	- Diaspora: implement post_mail permissions for direct messages
+	- Pubcrawl: implement post_mail permissions for direct messages
+	- Pubcrawl: deprecate asencode_person() in favor of Activity::encode_person()
+	- Pubcrawl: implement Activity::get_actor_collections() to reflect core actor store changes
+	- Diaspora: fix use of deprecated function
+	- Twitter: prevent re-retweeting of a post from a clone if it has already been sent
+	- Totp: use platform name instead of banner text
+	- Pubcrawl: use force flag when updating an actor
+	- Sse: do not process possible empty hashes
+	- Implement app descriptions for addons that already support the apps infrastructure
+
+
+Hubzilla 6.0.1 (2021-07-27)
+	- Fix regression in notification handling introduced in 6.0
+	- Fix regression in regard to unified session page load times introduced in 6.0
+	- Fix photo description textarea only available if create status post enabled
+	- Fix item not found by message id at clone locations
+	- Dismiss deleted xchans in mod chanview
+
+
+Hubzilla 6.0 (2021-07-09)
+	- Implement swipe to right for bringing in left aside
+	- DB update 1247 to clean up bogus entries in updates
+	- DB update 1246 to mark legacy zot xchans and hublocs deleted
+	- Implement desktop notifications
+	- Emit a warning if the calendar for the created event is disabled
+	- Add an option to drop media for bbcode processing
+	- Make mod HQ the default landing page after login
+	- Implement direct messages view for mod HQ
+	- Implement public/restricted messages view for mod HQ
+	- Implement starred messages view for mod HQ (only available if the Star Posts feature is enabled)
+	- Update composer libs
+	- Remove deprecated mod ping
+	- Remove legacy zot libs and functions - major cleanup
+
+	Bugfixes
+	- Fix deleting and starring in unthreaded view
+	- Fix issue where incomplete datasets were stored into updates
+	- Fix photo item tags not stored and propagated
+	- Fix notifications not loading if a filter was applied
+	- Fix in browser email validation for registrations
+	- Fix directory sync issues
+	- Fix issue where the original rawmsg iconfig got overwritten
+	- Fix unmaintained id3 pareser for PHP8
+	- Fix item_private state for imported items
+	- Random PHP8 fixes (ongoing)
+
+	Addons
+	- Pubcrawl: fix ld-signature for profile updates
+	- Pubcrawl: deprecate as_actor_store() in favor of Activity::actor_store()
+	- Twitter: prevent duplicated tweets
+	- Remove legacy zot dpendencies and deprecated functions
+	- Pubcrawl: fix remote reply for peertube
+	- Pubcrawl: fix issue where we could end up with an xchan but without hubloc
+	- Diaspora: implement the direct_message_recipients hook
+	- Queueworker: add a simple priority mechanism to prevent not so important janitor tasks (e.g. onedirsync) stuffing up the queue and delaying delivery of items
+	- Pubcrawl: implement direct message recognision for activities coming from Mastodon
+	- Pubcrawl: always show complete threads (complete as in all the messages we have received) in public stream
+	- Twitter_api: remove the mail endpoint
+	- Mail: make interface read only with the possibility to download and delete mails (this addon will be removed in a future version)
+	- Pubsubhubbub: move to addons-unmaintained
+	- GNU-Social: move to addons-unmaintained
+	- Fixes to reflect core notifier changes
+	- Diaspora: refactor conversations a.k.a mail to implement direct messages infrastructure
+	- Pubcrawl: allow hublocs to be upgraded from ostatus
+	- Diaspora: fix issue where we could end up with an xchan but without hubloc
+
+
+Hubzilla 5.6.1 (2021-06-04)
+	- Update spanish translations
+	- Fix login name label if register email verification is disabled
+	- Fix zotinfo issue with deleted channels
+	- Make pubstream ordering configurable
+	- Fix article summary duplicated when editing
+	- Update polish translations
+	- Fix admin setting for invitations not displayed correctly
+	- Fix registration in invite only mode
+	- Fix notifications not returning offset -1 when returning early
+	- Fix direct messages for items imported via sync
+	- Bring back the channel protocols hooks
+	- Fix security headers switching
+	- Fix magic auth for delegated channels
+	- Introduce drop_query_params() for secure query parameter removal
+	- PHP8 fixes (ongoing)
+	- Fix menu wrapping regression
+
+	Addons
+	- LDAPauth: fix regression creating an account
+	- Twitter: allow feeds crossposting
+	- Twitter: fix posting when post by default is disabled
+	- Pubcrawl: add litepub directMessage attribute
+	- Pubcrawl: allow xchan/hubloc upgrades from e.g. ostatus
+	- Diaspora: fix possible issue with missing hublocs
+	- Diaspora: refine dispatching of public of public items
+
+
+Hubzilla 5.6 (2021-05-11)
+	- Improve postgres hubloc queries
+	- Implement automatic duplicate singleton hubloc removal
+	- Send author id, id_sig and key fields along with author/owner
+	- Implement custom redis session backend
+	- Improved registration workflow
+	- Complete rewrite of the registration backend with many new features
+	- Complete rewrite of the invite app
+	- Update Spanish, Russian and Polish translations
+	- Improved PHP8 compatibiliy (work in progress)
+
+	Bugfixes
+	- Fix manual fetching of non-ascii domains
+	- Fix revision not compared when importing items
+	- Fix events not transformed to UTC when importing calendar
+	- Fix timezone issue in mod cal
+	- Fix profile photos not revalidated
+	- Fix regression in caldav/carddav discovery
+	- Fix caldav/carddav sync on remote access
+	- Fix info and notice messages not bootstraped when using SSE
+	- Fix URL including an @ treated like a webbie
+	- Fix cover photo image issues on some mobile devices
+
+	Addons
+	- Diaspora: improve performance when delivering public items
+	- Diaspora: make sure to not process same contact more than once
+	- Pubcrawl: make sure to not process same contact more than once
+	- Pubcrawl: do not relay Like and Dislike activity
+	- Pubcrawl: deprecate as_follow() in favour of core Activity::follow()
+	- Pubcrawl: improved compatibility with mobilizon and xwiki
+	- Pubcrawl: do not process follow/unfollw thread in as_create_note()
+	- Diaspora: do not relay comments/likes of strangers if the thread-owner is local and does not allow comments/likes by strangers in the diaspora app settings
+
+
+Hubzilla 5.4.3 (2021-04-20)
+	- Fix regression in mod notifications (only the last was visible)
+	- Set Permissions-Policy: interest-cohort=() header by default
+	- Fix xchans containing a % breaking get_forum_channels()
+	- Fix webfinger if using a reverse proxy
+	- Fix regression finding bookmarks
+	- Fix zot6 hublocs import on channel import
+	- Fix revision not checked in import_items()
+
+
+Hubzilla 5.4.2 (2021-03-15)
+	- Fix translation plural variable
+	- Fix issue with following/unfollowing a thread
+	- Fix rendering of long text in xchan vcard
+	- Fix local link for rss content if rewrite author is sets
+	- Fix regression in mod display
+
+	Addons
+	- Pubcrawl: fix issue with following/unfollowing a thread
+	- Pubcrawl: more robust implementation of mastodon remote reply
+	- Photocache: remove suffix from the cached photo URL
+
+
+Hubzilla 5.4.1 (2021-03-09)
+	- Fix profile not found if not logged in
+	- Fix summary not reset on cancel
+	- Fix summary not saved with aoutosave draft
+	- Fix unexpected trigger of buttons when pressing enter in input fields
+	- Fix spanish plural expression
+	- Fix undefined page-end on non dynamic pages
+
+	Addons
+	- Pubcrawl: fix regression in pubcrawl_follow_mod_init()
+
+
+Hubzilla 5.4 (2021-03-08)
+	- Add new connections to privacy group independend from the default privacy group settings
+	- group_add() return group hash to save a lookup
+	- Do not poll feeds if feed contacts setting is disabled
+	- Deprecate sticky_kit library in favor of CSS position sticky solution
+	- Trigger endless scroll loading at the end of content instead of end of window height
+	- Implement experimental zap export compatibility
+	- Deprecate the [summary] tag in favor of a separate input field for the summary
+	- Adjust error reporting for PHP8
+	- Rely on php.ini default value for pcre.backtrack_limit
+	- PHP8 compatibility (experimental)
+	- Introduce Lib/Crypto (ported from zap)
+	- Introduce Lib/Keyutils which now implements phpseclib v2
+	- Improve profile photo fetching
+	- Introduce fetch_provider hook
+	- Implement ActivityStreams discovery in mod profile
+	- Implement ActivityStreams discovery in mod channel
+	- Streamline OS folder and file permissions
+	- Add polish translations
+	- Implement ThreadListener in mod activity_match
+	- Improve ThreadListener handling
+	- Use mail envelope instead of lock icon for direct messages
+	- Implement ASCollection in Libzot::fetch_conversation()
+	- Invoke channel discovery by hash instead of address in mod channel
+	- Implement manual public item import for zot6, activitypub and diaspora via search
+	- Default photo storage to filesystem instead of DB for new installations
+	- Support filesystem storage for xchan profile photos
+	- Deprecate Daemon/Externals
+	- Implement SQL query background caching
+	- Process channel categories list in background
+	- Port util/connect to Lib/Connect
+
+	Bugfixes
+	- Fix visible/empty notifications for blocked contacts items
+	- Fix issue where URL fragment was turned into hashtag if the hashtag existed elsewhere in the post (issue #1518)
+	- Fix audio and video embeds for media sources without media format extension
+	- Fix issue where zot package was saved in iconf instead of the decoded activity
+	- Fix duplicate id in post preview
+	- Fix display issue of restricted content in mod display
+	- Fix issue where comments were not delivered to the public stream
+	- Fix issue where profile photos were stored multiple times and remove duplicates
+	- Fix pinned items sync between clones
+	- Fix r_preview for list mode in mod channel and mod network
+
+	Addons
+	- Pubcrawl: deal with mastodons remote replies
+	- Diaspora: reduce xchan network confusion in several places
+	- Diaspora: fix mentions if multiple xchan networks exists
+	- Diaspora: fix comments on comments
+	- Pubcrawl: do not re-use broken signed messages
+	- Pubcrawl: fix parsing of images with description (core issue #1519)
+	- Pubcrawl: use the signed message from the attachment (iconfig) when relaying
+	- Diaspora: implement browser to browser encrypted messages as base64 encoded string
+	- Pubcrawl: implement browser to browser encrypted messages as base64 encoded string
+	- Diaspora: support post summary
+	- Pubcrawl: fix summary aka content warning
+	- PHP8 compatibility (experimental)
+	- Tripleaes: removed
+	- Reflect core crypto changes
+	- Photocache: improve mimetype detection
+	- Diaspora: implement mnanual fetch provider
+	- Diaspora: implement send participation
+	- Pubcrawl: deprecate pubcrawl_is_as_request() in favor of the core version in Lib/ActivityStreams
+	- Diaspora: prefer zot identity for inbound comments if available
+	- Pubcrawl: return zotfeed results in mod outbox
+	- Queueworker: improved deduplication by adding a uuid
+	- Superblock: fix syncing with clones regression
+	- Queueworker: improve SQL query in GetWorkerCount()
+	- Queueworker: fix issue in workersleep handling
+
+
+Hubzilla 5.2.2 (2021-02-13)
+	- Fix issue with ping_site()
+
+
+Hubzilla 5.2.1 (2021-01-16)
+	- Fix attach_upgrade() to catch all broken entries in attach
+	- Fix collect_recipients() public policy filter for zot6
+	- Fix leaking of duplicate tasks in queueworker
+
+
+Hubzilla 5.2 (2021-01-13)
+	- Use libzotdir for directory
+	- Streamline usage of channel url for keyId
+	- Basic work on PHP8 compatibility
+	- Improve performance for forum post edit action
+	- Improve File App tiles view
+	- Update es strings
+	- Update ru strings
+	- Implement directory download via zip files in Files App
+	- Implement bulk file download via zip files in Files App
+	- Deprecate ! and !! forum tags - use direct messages to post to forums
+	- Do not show forums where we do not have permission to post in ACL selector
+	- Implement lockview for Files App
+	- Implement file and directory rename functionality Files App
+	- Implement file and directory copy functionality in Files App
+	- Implement file and directory move functionality in Files App
+	- Implement categories for files and directories in Files App
+	- Implement drag and drop move action for files and directories in Files App
+	- Implement bulk file actions for move, copy, categories and permissions
+	- Implement a files categories widget
+	- Implement a breadcrumb view for file paths
+	- Rewrite xchan_vcard template
+	- Update composer libs
+
+	Bugfixes
+	- Fix direct messages by forum channel turned into group item
+	- Fix ID3Parser composer autoload
+	- Fix issue where directory_fallback_servers were not accessible from static function
+	- Fix missing constant defenition for HUBLOC_OFFLINE
+	- Fix sync_directories() including known dead sites
+	- Fix undefined variable in poller preventing Onedirsync from running
+	- Fix w2w posts not editable/deletable from local server
+	- Fix issue where categories were not saved on forum wall posts
+	- Fix no channel_id provided for contact_remove() in reply_purge()
+	- Fix typo in notifier command
+	- Fix profile title/description allowed more than 191 characters
+
+	Addons
+	- Queueworker: cleanup whitespace
+	- Queueworker: add some tweaks to prevent deadlocks for postgresql
+	- Flashcards: compatibility for the changes in the Files App
+	- Openstreemap: fix hostname parsing from URL
+	- Openstreemap: fix content security policy
+	- Pubcrawl: fix peertube video display
+	- Pubcrawl: deliver updates to anyone owning the item
+
+
+Hubzilla 5.0.8 (2020-12-30)
+	- Fix single quotes not escaped in the notifications title (issue 1503)
+	- Return zot6 xchans for random_profile()
+	- Return zot6 entries in dirsearch
+	- Fix comment sync issue
+	- Fix duplicate entries in contact autocomplete
+	- Fix issue where direct message notifications where not displayed for wall items
+	- Do not revalidate cached photos
+	- Implement imagemagic resource consumption limiting
+	- Specify key in mod owa
+	- Fix issue where array was passed to get_key()
+
+
+Hubzilla 5.0.7 (2020-12-21)
+	- Fix CardDAV addressbook ID
+	- Use Zot6 for CardDAV and CalDAV sync between clones
+	- Handle owa with hubloc_id_url only
+	- Fix attachment in comment not visible after commenting - issue #1499
+
+
+Hubzilla 5.0.6 (2020-12-17)
+	- Fix zot hublocs with empty hubloc_id_url in DB caused by clone import bug
+	- Only look for zot6 and zot hublocs in mod owa
+	- Fix abconfig issue when cloning a channel
+	- Call notifier with refresh_all instead of location when importing a clone
+	- Use Libzot::encode_locations() instead of zot_encode_locations() in notifier
+	- Fix missing zot hubloc hubloc_id_url when importing a clone
+	- Implement Libzot::zot_record_preferred() in various places to prevent hubloc confusion
+
+	Addons
+	- Fix wrong redirect path for check_form_security_token_redirectOnErr() in various addons
+
+
+Hubzilla 5.0.5 (2020-12-12)
+	- Fix hubloc issue in mod getfile
+	- Remove duplicate SQL query
+
+
+Hubzilla 5.0.4 (2020-12-01)
+	- Fix regression updating the primary
+	- Dismiss title in response activities
+
+
+Hubzilla 5.0.3 (2020-11-26)
+	- Upgrade phpunit to version 9
+	- Remove dbunit because its not maintained anymore
+	- Add uuid version 5 based uuid's to imported feeds
+	- Fix potential delivery loop
+	- Fix actor of fetched activities not stored
+	- Improve update mechanism for comments and likes to prevent page jumps
+	- Fix issue where channel suggestions was suggesting oneself
+	- Do not auto-update except for own actions
+	- Introduce ctrl-enter shortcut to send comments and posts
+
+	Addons
+	Pubcrawl: improve addressing of mentioned actors
+
+
+Hubzilla 5.0.2 (2020-11-16)
+	- Fix edge case in acl selector
+	- Fix ping_site()
+	- Fix directory post url
+	- Update russian translation
+	- Implement polling for notifications (default) - SSE can be enabled in /admin/site if desired
+	- DB update to remove hublocs with no hubloc_hash or no hubloc_callback
+	- Do not save actors without an inbox
+	- Fix import_hublocs()
+
+	Addons
+	- Pubcrawl: do not save actors without an inbox
+	- Diaspora: fix issue with diaspora where hublocs without hubloc_hash were stored
+
+
+Hubzilla 5.0.1 (2020-11-12)
+	- Fix share title size
+	- Fix issue where hublocs could get mixed up between different protocols
+
+	Addons
+	- Pubcrawl: implement authenticated profile fetches which are now partly required in mastodon
+	- Sse: call xchan_query() just once per item
+	- Pubcrawl: reject messages where sender is not the author if ld-signature is not ok
+
+
+Hubzilla 5.0 (2020-11-05)
+	- Remove unmaintained and deprecated schemas
+	- Deprecate HTML5_Parser library
+	- Implement results caching for public tag and profile categories fetching
+	- Deprecate $a variable for *_plugin_admin() and *_plugin_admin_post()
+	- Support remote host cache directives on profile photo fetching
+	- Disable community tags until it is agreed upon on how to implement in zot6 or activitypub
+	- Improve home install setup script
+	- Cryptojs moved to addon
+	- Implement "more encryption" feature with the SJCL library
+	- Add minimum form lifetime check
+	- Improve updateConvItems() performance
+	- Improve infinite scroll experience
+	- Introduce a software bill of material (wip)
+	- Implement new forum behaviour (direct-message a forum to post on its wall) for cross-plattform forum compatibility
+	- Allow apps to be both pinned and starred independently
+	- Add images load status to spinnner if preload images is enabled
+	- Deprecate premium channel app
+	- Allow to set different values for left and right aside width in $theme.php
+	- Display complete permission info only to channel owner
+	- Set CURLOPT_ENCODING to empty string so that compressed content will be uncompressed
+	- Force browser photo revalidation
+	- Deprecate ACTIVITY_OBJ_FILE and ACTIVITY_OBJ_WIKI in favour of other object types (Document, Audio, Video)
+	- Use $mid as plink to prevent to long plinks
+	- Handle some basic friendica attachment bbcodes
+	- Deprecate is_edit_activity()
+	- Deprecate voting feature in favour of polls
+	- Show event timezone if it differs from the channel timezone
+	- Avoid multiple run of expiry procedure on large sites
+	- Implement zot6 as the primary protocol
+	- Introduce polls
+	- Provide titles for wiki links markup
+	- Implement DAV calendars sync with clones
+	- Optional events and poll filters for mod network
+	- Add new addon hook get_banner
+	- Provide tools to deal with spam channels for primary directory admin
+	- Introduce pinned posts for mod channel
+	- Refactor notifications to utilize server sent events
+	- Provide more descriptive connection status icons
+
+
+	Bugfixes
+	- Fix issue where interrupted uploads could not be resumed
+	- Fix photo sync issue between clones
+	- Fix issue where profile photos were fetched for unknown channels
+	- Apply channel name changes to all associated xchans
+	- Show unchecked box in connedit if value is false
+	- Reset their_perms before setting new permissions to reflect permission retractions on local hub
+	- Respect advanced profile setting in sexual preference selector
+	- Do not allow invite codes to be reused unlimited times
+	- Fix issue with quoted hashtags/mentions
+	- Fix issue generating photo thumbnails when uploaded via davfs
+	- Do not call System::get_platform_name() within t() unless needed
+	- Fix wrong URL detection with Markdown support enabled
+	- Fix once cached embedded content is used and stored forever
+
+	Addons
+	- Pubcrawl: fix issue where http signatures were not verified
+	- Pubcrawl: fix issue where private keys were lost from storage
+	- Pubcrawl: add host to signed headers (required by mastodon 3.2.1)
+	- Diaspora: remove relay@relay.iliketoat.net as default relay (it does not exist anymore)
+	- Diaspora: provide UI for admin to configure relay
+	- Diaspora: move the-federation.info registration to statistics addon
+	- Deprecate $a variable for *_plugin_admin() and *_plugin_admin_post()
+	- Chess: moved to addons-unmaintained repository
+	- Introduce cryptojs addon to allow decryption of legacy e2ee notes
+	- Introduce the hide aside addon - fade out aside areas after a while when using endless scroll
+	- Gallery: only show first row of images in the preview
+	- Gallery: restrict height of images to divmore_height
+	- Diaspora: make sure we only provide strings for unxmlify()
+	- Pubcrawl: fix federation with pixelfed
+	- Pubcrawl: dismiss announce if we already have the original item
+	- Gallery: implement view_storage permission for channel_apps()
+	- Cart: order currency param must be added to the sdk script url
+	- Diaspora utilize Lib/Connect
+	- Cart: utilize Lib/Connect
+	- Cart: add per item and per order customer data entry
+	- Pubcrawl: implement polls
+	- Chord Generator: moved to addons-unmaintained repository
+	- Custom Home: moved to addons-unmaintained repository
+	- Flattr Widget: moved to addons-unmaintained repository
+	- Friendica Photo Migrator: moved to addons-unmaintained repository
+	- Jappix Mini: moved to addons-unmaintained repository
+	- Mahjongg: moved to addons-unmaintained repository
+	- Torch: moved to addons-unmaintained repository
+	- Tour: moved to addons-unmaintained repository
+	- Introduce navbanner_option addon
+	- Pubcrawl: support image description
+	- Queueworker: fix duplicate checking
+	- Diaspora: fix dreport
+	- Move legacy zot/diaspora mail frontend from core to mail addon
+	- Diaspora: improve sql queries performance
+	- Pubcrawl: introduce pubcrawl_activity_mod_init()
+	- Twitter: replace Hubzilla bookmark with unicode icon
+	- Pubcrawl: add sys channel to local subscribers
+	- Pubcrawl: deal with arrays in attributedTo
+	- Workflow: various fixes
+	- Channelreputation: various fixes
+	- Introduce SSE addon to provide realtime notifications utilizing server sent events
+
+
+Hubzilla 4.6 (2019-12-04)
+	- Improve opengraph support for channels
+	- Add opengraph support for articles
+	- Update abook_connected for RSS feeds only if handle_feed() returned success
+	- Do not embed PDF files by default but allow to enabled this feature in security options
+	- Check if file exists before we include it in the router
+	- Update jquery to version 3.4.1
+	- Update composer libraries
+	- Remove old and unused javascript libraries
+	- Improved BBcode to Markdown conversion
+	- Introduce inline SVG support via BBcode
+	- Sanitize title on Atom/RSS feed import
+	- Improved HTTP headers cache support for photos
+	- Add date headers to signed headers
+	- Add check if item['tag'] is an array
+	- Add hook comments_are_now_closed for addons to override date based comment closure
+	- Change mysql schema for item.llink and item.plink for new installs from char(191) to text
+	- Improved photo cache expiration
+	- Improved plural function processing on translation strings creation from .po file with util/po2php utlility
+	- Improved support for CDN/Infrastructure caching (especially profile images)
+	- New japanese translation
+	- Add connect button for non-zot networks not connected in current location
+	- Allow to send forum channels wall2wall or sent by mentions post to external sites via addons
+	- Allow addons to process forum posts published through mentions
+	- Improved internal routing for ActivityPub messages
+	- Improved admin documentation
+	- Add ITEM_TYPE_CUSTOM and hooks to permit addons to create and distribute custom item types
+	- Support "comment policy" in Zot6 communications
+	- Add selected text as quote on reply if comment button is used
+	- Add more nofollow tags to links to discourage backlink farmers
+	- Improved conversion of emoji reactions from zot to zot6
+	- Add CardDAV/CalDAV autodiscovery
+	- Label source project of zotfeed since it is not completely compatible across projects
+	- Update homeinstall script
+
+	Bugfixes
+	- Fix once cached embedded content is used and stored forever
+	- Fix wildcard tag issue
+	- Fix duplicate attachment in jot fileupload
+	- Fix regression with audio file upload
+	- Fix can not edit menu name or title (#1402)
+	- Fix pagination encoding issue for some server setups
+	- Fix Zap->Hubzilla event title compatibility
+	- Fix event timezones for Zot6
+	- Fix missing summary in mod article_edit
+	- Fix PHP warning failed to write session data using user defined save handler
+	- Fix possible thumbnails distortion on rebuild with util/thumbrepair utility
+	- Fix issues with image import to zot6
+	- Fix attachment permissions on clonned channels sync
+	- Fix entries without sitekey returned from DB in queue_deliver() and Lib/Queue
+
+	Addons
+	- Twitter: send tweet even if attached image uploading was unsuccessful
+	- Livejournal: add link to original post option
+	- Flashcards: update to version 2.08
+	- Pubcrawl: compatibility changes to support pixelfed
+	- Cart: update paypal button to API v2
+	- Photocache: rework for speed and lower memory consumption
+	- Photocache: etag support for cached photos
+	- Photocache: purge cache on addon uninstall
+	- Openstreetmap: fix regression if no default values set
+	- Livejournal: allow send posts from non channel owner
+	- Pubcrawl: fix event timezones
+	- Pubcrawl: better ActivityPub channel URL detection
+	- Pubcrawl: fix comments delivery for other channels on the same hub
+	- New addon "workflow" with initial basic "issue tracker" capability
+
+
+Hubzilla 4.4.1 (2019-08-16)
+	- Fix wrong profile photo displayed when previewing and editing profiles
+	- Fix regression from 4.4 which prevented encrypted signatures from being used for encrypted messages
+	- Fix typo in queueworker addon which broke filtering of duplicate work
+
+
+Hubzilla 4.4 (2019-08-13)
+	- Change primary directory from zotadel.net to hub.netzgemeinde.eu (requested by zotadel admin)
+	- Add Russian context help files
+	- Replace plink URL with share tag if possible
+	- Catch and exclude trailing punctuation while URL embedding
+	- Do not limit channel if service class property value is set to zero
+	- Streamline keyId and creator/actor
+	- Add daemon_master_summon hook
+	- Serve static files directly if not caught by web server
+	- Update cacert.pem
+	- Calendar: allow different date/time format inputs
+	- Calendar: hide timezone select for allday events
+	⁻ Add opengraph meta info to channel page
+	- Begin directory migration to zot6
+	- Support zot and zot6 in social graph operations
+	- Lowlevel support for zot6 direct messages
+	- Consolidate HTTP signatures
+	- Allow api login by address or url
+	- Provide auto redirect from zot6 /item permalinks
+	- Export all items except photos in channel_export_items_date()
+	- Calendar: clicking a day or week number will now open the day or week view
+	- Remove cached photo location directory on delete if empty
+	- Include zot6 hubs in the Grid scope
+	- Fix os_path replace for thumbnails
+	- Avoid to process original images using storeThumbnail()
+
+	Bugfixes
+	- Fix URLs on imported item taxonomy
+	- Fix admin not allowed to delete any item
+	- Fix webfiunger issue with URLs containing an @
+	- Fix missing object in emoji reactions
+	- Fix appschema to include diaspora:guid
+	- Fix zotfinger in update_directory_entry()
+	- Fix incorrect media type on links for photo objects
+	- Fix mid not dbesc'd in item_store()
+	- Fix calendar encoding issues
+
+	Addons
+	- twitter: various rendering improvements
+	- cavatar: fix wrong image mimetype
+	- gravatar: fix wrong image mimetype
+	- Add license file
+	- pubcrawl: make repeats render like wall to wall posts
+	- pubcrawl: fix pubcrawl_import_author() sometimes returning a non activitypub xchan
+	- pubcrawl: use Lib/Activity for taxonomy en/decoding
+	- pubcrawl: fix wrong uuid in like activity
+	- pubcrawl: fix issue with encoding hashtags
+	- openstreetmap: use https URLs by default
+	- queueworker: refactor and efficiency improvements
+	- pubcrawl: use unique IDs for follow and accept activities
+	- pubcrawl: implement thread completion
+	- pubcrawl: implement delete activity
+	- photocache: reduce the size of the photo cache subdirectories tree
+	- photocache: use html_entity_decode() for cached photo URL
+	- diaspora: fix possible issue with diaspora relay not initializing
+
+
+Hubzilla 4.2.1 (2019-06-17)
+	- Deprecate mod events
+	- Revisit mod cal
+	- Fix issues with deletion of linked items and resources
+	- Fix zot6 delete issue
+	- Fix attach sync issue
+	- Remove sizeRangeSuffixes in justified gallery wrapper
+	- Fix storageconv issue with postgres
+	- Fix embedphotos image size
+	- pubcrawl: use URI instead of object for actor url
+	- diaspora: adjust loglevel
+	- gallery: remove workaround for margin issue which has been fixed upstream
+	- cart: warn about unsaved changes
+
+
+Hubzilla 4.2 (2019-06-04)
+	- Introduce Calendar app which deprecates Events and CalDAV apps and streamlines the featuresets
+	- Update mod cal to reflect changes in the calendar app
+	- Improve timezone detection for CalDAV calendars
+	- Add mention support to event description in channel calendar
+	- Update jgrowl library
+	- Do not try to oembed URLs without embed tags
+	- Optimise pdf oembed processing
+	- Add form security token to mod register
+	- Replace URLs for mod gallery, mod photos and mod photo on cloned channel post sync
+	- Update justified gallery library
+	- Update bootstrap libraries
+	- Use "cache" flag for bbcode() on content destined for zot6
+	- Improve DB indexing
+	- Drop deprecated columns from channel the table
+	- Replace own image URL in clonned channel posts
+	- Improve DB update handling
+	- Improve item deletion when a contact was removed
+	- Zot6 compatibility for emoji reactions
+	- Add threaded comments support (disabled by default)
+	- Improve xmlify()/unxmlify() performance
+	- Update blueimp/jquery-file-uplad library
+	- Update sabre/vobject library
+	- Various doco updates
+	- Implement remove profile photo button (reset to default photo)
+	- Implement remove cover photo button
+	- Update the homeinstall script
+	- Add command line tool for photo thumbnails storage conversion
+	- Implement option to store photo thumbnails in filesystem instead of DB
+
+	Bugfixes
+	- Fix category widget when using articles
+	- Fix live update not triggering in mod search
+	- Fix encoded URLs in code blocks
+	- Fix wiki headers not escaped
+	- Fix possible xchan protocol confusion in new_contact()
+	- Fix xchan_url not displayed if xchan_addr not available
+	- Fix suggestion ordering in mod directory
+	- Fix event attachment delivery to zot6
+
+	Addons
+	- pubcrawl: improve friendica compatibility by adding the nonstandard diaspora:guid field
+	- pubcrawl: initial suport for events
+	- pubcrawl: improve permalink detection
+	- flashcards: fix moving learn buttons if viewport sizes changes
+	- flashcards: Move card details to the bottom of a card
+	- upgrade_info: provide links to changelog
+	- photocache: do not save filename for cached photos
+	- pubcrawl: save local comment activitypub payload in iconfig to be used for relay
+	- flashcards: UI improvements in box settings
+	- pubcrawl: implement profile update messages
+	- pubcrawl: use URI instead of object for actor
+	- flashcards: fix jumping sync button
+	- pubcrawl: add threaded comments support
+	- pubcrawl: ignore target encoding errors
+	- pubcrawl: format photo items for activitypub
+
+
+Hubzilla 4.0.3 (2019-04-26)
+	- Add attachments to zot6 event objects
+	- Add zot6 to federated transports
+	- Update import/export to handle zot6 hublocs and xchans
+	- Update fix_system_urls() to handle zot6 hublocs
+	- Fix infinite loop using postgres as backend
+	- Fix magic auth in combination with zot6
+	- Fix check for required PHP version
+	- Diaspora: favour diaspora protocol identities over others with same hubloc or xchan address
+
+
+Hubzilla 4.0.2 (2019-04-08)
+	- Port cdav calendar to fullcalendar version 4
+	- Fix perms_pending not evaluated correctly
+	- Fix return wrong profile photo modification date by plugin
+	- Fix suggestion widget using feature_enabled still
+	- Fix check service class limits when syncing files
+	- Remove xchan_instance_url from notifier query - it is not used anymore
+	- Implement remove cover photo functionality
+	- Fix z6_discover() and create a zot6 hubloc on import if applicable
+	- Add backend support for connections ordering
+	- Deduplicate items in item_store() by uuid if we got one otherwise by mid
+	- Add ITEM_TYPE_CUSTOM support to mod display
+	- Fix mod subthread on sys channel items
+	- Fix "recipient not found" dreport spaming with own xchan
+	- Fix wrong variables in dirsearch
+	- Fix 48 hours timeframe check in mod changeaddr
+	- Fix wrong variable in Libsync
+	- Pubcrawl: revert adding additional receivers to comments
+	- Diaspora: fix intro received when being banned
+	- Pubcrawl: add diaspora:guid from friendica AP posts for deduplication
+	- Diaspora: fix friendica plink
+	- Photocache: fix issue with spaces and quotes in original filenames
+
+
+Hubzilla 4.0.1 (2019-03-21)
+	- Fix permissions not getting decrypted on follow
+	- Add option to add a poster to the video bbcode
+	- Fix SQL performance issue with queries including thr_parent
+	- Fix share encoding issue between hz and zap
+	- Fix edge case in unsupported advisory privacy
+	- Messagefilter enhancements
+	- Fix XSS issues
+	- Clone systems apps to the extent possible
+	- Auto-configure imagick thumbnail binary during setup if possible
+	- Fix array not unserialized in util/service_class
+	- Add phpmd and phpcs to composer require-dev for code linting
+	- Fix issue with email encoding
+	- Fix signature issue for zot6 content imported from zotfeeds to hubzilla
+	- Find unregistered z6 clones on hubzilla sites
+	- Add zot6 to clonable networks
+	- Add owner permission checks to AS item fetch
+	- Perform zot6 discovery in import_author_xchan
+	- Fix authenticated fetches
+	- Port zot_record_preferred() from zap
+
+	Addons:
+	- Pubcrawl: deliver comments to abook contacts and thread participants
+	- Pubcrawl: fix can_comment_on_post()
+	- Deliverynotice: do not save empty postopts
+	- Gravatar: fix URL and use z_fetch_url()
+	- Pubcrawl: improve SQL queries in pubcrawl_item_mod_init()
+	- Pubcrawl: fix authenticated item fetch
+
+
+Hubzilla 4.0 (2019-03-08)
+	- Add CURLOPT_CONNECTTIMEOUT option
+	- Allow parameters as final path argument in API router
+	- Remove clones from delivery recipients for top-level posts in favor of clone sync
+	- Mention php-zip module dependency in administrator guide
+	- Iron out some kinks with scrollToItem() in combination with collapsed content and images
+	- Zot API changes to support combined content (items+files) import addon
+	- Update PHP Version check during setup - min version is now 7.1
+	- Urlencode links in category widget
+	- Implement ability for channel visitors to be able to delete their own content
+	- Support zot location independent urls
+	- MySQL 8 admin summary compatibility
+	- Improved gitlab-ci environment
+	- Deprecate and remove addon settings in favour of per app settings
+	- Refactor PhotoDriver class and add tests
+	- Convert affinity tool to app
+	- Refactor linkify_tags() so it works with xchans across multiple protocols
+	- Add the actual mid to viewsrc for debuging reasons
+	- Add filter hooks and the ability to add buttons to the default status editor
+	- Prevent Hubzilla usage for SEO backlinks
+	- Implement privacy warning for forum posts via !-tag
+	- Set document title when title changes on a page update
+	- Cache embeds in the background on initial storage rather than on first access
+	- Custom sessionhandler support
+	- Update nginx and lighttpd sample server configs to explicit disallow access to util
+	- Introduce command line tool for managing site admins
+	- Various doxygen improvements
+	- Add privacygroup_extras_post/drop hooks
+	- Add collect_public_recipients hook
+	- Prevent memory exhaustion on zot message pickup with large message queue
+	- Remove experimental worker queue from core
+	- Add get_base_apps hook
+	- Improve handling of notification updates while commenting
+	- Add warning if upload_filesize < 4MB
+	- Add ITEM_TYPE_CUSTOM and hooks for processing custom item types
+	- Set min/maxversion for plugins to STD_VERSION unless otherwise specified
+	- Add option to make affinity slider 'sticky' across page loads
+	- Add photo_view_filter hook
+	- Reset page title if article has no title
+	- Implement the zot6 protocol
+	- Add PHOTO_CACHE photo type
+	- Basic support for HTTP3
+	- Add native summary support
+	- Disable image caching if personal or group permissions enabled
+
+	Bugfixes
+	- Fix guest access token xchan record not created on URL login
+	- Fix regression where mod oep was still using hex2bin/bin2hex instead of album hash
+	- Fix regression when selecting multiple images in embed images
+	- Fix broken sync_an_item()
+	- Fix page jumping on like if comments are expanded (show all x comments)
+	- Fix regression in mod display where an page update could display items from multiple channels
+	- Fix starring and filing allowed for other unsupported item types
+	- Fix wrong variable in z_get_temp_dir()
+	- Fix page jumping when liking a collapsed/expanded post
+	- Fix tags detection in URL
+	- Fix warnings in mod embedphotos
+	- Fix wrong variable in can_comment_on_post()
+	- Fix mod new_channel counting removed channels
+	- Fix regression where not all content variables were sslified
+	- Fix default values for affinity tool and other information which could be lost when approving a connection
+	- Fix regression in linkdropper()
+	- Fix issue with unset auto_save_draft variable which resultet in a javascript error
+	- Fix home notifications won't expand if there are more than 300 unseen network notifications ahead of them
+	- Fix total_identities count
+	- Fix delayed items propagate before publication on cloned channels
+
+	Addons
+	- twitter_api: fedilab needs profile_image_url_https
+	- New addon: content_import - imports items and files to cloned channels (this obsoletes hzfiles)
+	- Diaspora: prevent processing of incomplete messages in various places
+	- hzfiles: fix add missing load/unload functions
+	- chess: do not look for games if we have no game_id - improves initial pageload performance
+	- chess: convert to app
+	- channelreputation: convert to app
+	- irc: convert to per app
+	- Provide the addon_common directory for common addon libraries
+	- fuzzloc: convert to app
+	- flattrwidget: convert to app
+	- jappixmini: convert to app
+	- xmpp: convert to app
+	- visage: convert to app
+	- diaspora: reflect linkify_tags() rewrite
+	- twitter: convert to app
+	- smileybutton: convert to app
+	- skeleton: convert to app
+	- planets: convert to app
+	- pumpio: convert to app
+	- pageheader: convert to app
+	- nsabait: convert to app
+	- dwpost: convert to app
+	- diaspora: set the preserve_lf option in various places
+	- diaspora: fix comments from unknown persons are not accpted
+	- nofed: convert to app
+	- ljpost: convert to app
+	- diaspora: call update_queue_item() if delivery failed
+	- pubcrawl: call update_queue_item() if delivery failed
+	- libertree: convert to app
+	- New addon: queueworker advanced - queue handling (experimental)
+	- gallery: extended functionality: implements stream image viewer, converts images at the beginning of a post to a gallery
+	- authchoose: correction to query, add affinity setting
+	- New addon: photocache - local caching for public photos
+	- New addon: totp - two factor authentication using time-based one-time passwords
+
+
+Hubzilla 3.8.9 (2018-02-03)
+	- Fix typos in mod oep
+	- Fix page jumping when liking collapsed/expanded post
+	- Fix failure to import mail in mod import
+	- Fix wrong channel count in mod new_channel
+	- Fix diaspora addon regression
+	- Remove deprecated diaspora addon endpoint
+	- Fix wrong function call in gallery addon
+
+
+Hubzilla 3.8.8 (2018-12-22)
+	- Fix issue with linkinfo
+	- Fix cURL with HTTP/2
+	- Remove scale_external_images()
+	- Style highlight bbcode via css
+	- Make mod channel deal with b64 encoded mid's
+	- Fix email retrieval in OAuth2Storage
+	- Add reinstall option to util/addons
+	- Remove deprecated caching protection from mod photo
+	- Add missing check for observer in mod like
+	- Articles: default to logged in channel if channel name is not passed
+	- Wiki: fix preview issue with hyperlinks
+	- Cart: backport fixes from osada
+	- Gallery: provide file extensions for better compatibility
+	- Hsse: fix issue when linkinfo data was inserted
+	- Diaspora: remove deprecated scale_external_images()
+
+
+Hubzilla 3.8.7 (2018-12-14)
+	- Fix issue with linkdropper in comment area
+	- Fix regression wit app ordering
+	- Fix return if readImnageBlob() throws an exception
+	- Introduce photo_view_filter hook
+	- Fix home notifications not expanding in certain situations
+	- Fix for dark schema
+	- Fix total identities restriction
+	- Fix article page title not updating if article has no title
+	- Gallery: the gallery app will now act as the full-size photo viewer in /photos if installed
+
+
+Hubzilla 3.8.6 (2018-12-03)
+	- Prevent incompatible export files (osada/zap) from being imported
+	- Catch exception if readImageBlob() receives bogus data
+	- Streamline PDF previews
+	- Allow notification filtering by name or address
+	- Fix too restrictive attached photo permissions
+	- Update ES translation
+	- Use flex for the default template
+	- Do not store serialized pconfig value received via to Module/Pconfig.php
+	- Update jquery-file-upload lib and move to composer
+	- Update imagesloaded lib and move to composer
+	- Fix activitypub tag notifications
+	- Fix call to undefined function in PConfig
+	- Fix typo which prevented propagation of comments to zot6 (dev)
+	- Activitypub: add support for pterotype (wordpress plugin)
+	- Openstreetmap: check validity of lat+lon before rendering a map
+
+
+Hubzilla 3.8.5 (2018-11-19)
+	- Fix pconfig for new installs
+	- Fix delayed publication of posts in combination with channel clones
+	- Fix issue where photo filesize was not updated in the DB when a photo was edited
+	- Fix issue where the original photo size was not set correct in the DB
+	- Fix delivery issue in zot_fetch()
+	- Fix typo in channel reputation addon
+
+
+Hubzilla 3.8.4 (2018-11-14)
+	- Fix xss issue (thanks to Eduardo)
+	- Implement hook in enotify to be used by superblock
+	- Various css fixes
+	- Improve photo cache handling
+	- Provide a function hz_syslog() to log to syslog
+	- Fix request_target in z_post_url()
+	- Fix plural handling for various languages
+	- Some preparatory work for zot6
+	- Fix warning in gallery addon
+	- Fix date issue on xchan photo update in diaspora and pubcrawl addons
+	- Fix typos in startpage addon
+	- Improve activitypub addressing
+	- Fix taxonomy in activitypub direct messages
+	- Fix syntax error in diaspora addon
+	- New e-learning addon flashcards
+	- Remove DNS check for database connection during installation
+	- Implement timestamps for pconfig
+
+
+Hubzilla 3.8.3 (2018-11-05)
+	- Do not count likes in forum notifications if likes notifications are disabled
+	- Fix typo in spanish translation which broke javascript
+	- Improve linkinfo charset handling and image detection
+	- Fix wrong image resize for some external images
+	- Move blueimp upload lib to composer and update to version 9.25
+	- Remove primary/clone counts from admin summary until we have a mechanism to update the fixed counts
+	- Fix html2markdown() and re-enable previously failing tests
+	- Improve look of oembed content for Hubzilla links
+	- Fix forum notifications count not correct
+	- Fix gallery addon which broke mod apps in some situations
+	- Fix wiki_list widget not working on every page respectively level
+
+
+Hubzilla 3.8.2 (2018-10-29)
+	- Merge unmerged changes from dev into master
+	- Fix issues with forum handling in mod network and ping
+	- Fix delivery chain linkage messed up if original post was edited
+	- Fix issues with the experimental queue worker
+	- Fix call to image source {1} from html template
+	- Group stream filters by threaded and unthreaded default view
+	- Show only unseen forum messages when clicking on forum notification
+	- Improve editor contact autocomplete performance
+	- Convert non UTF-8 content on link embeding
+	- Make textcomplete return up to 100 items
+	- Look for for matches in the entire string when suggesting emojis
+	- Add [summary] bbcode to autocomplete list
+	- Update blueimp_upload to version 9.23
+	- Update spanish strings
+
+	Addons
+	- Cart: don't allow items to be added unless user is logged into the Grid.
+	- Pubcrawl: simplify asencode_activity() addressing to reflect upcoming changes in mastodon 2.6
+	- Rendezvous: Update rendezvous_group.tpl to fix broken Bootstrap library reference
+
+
+Hubzilla 3.8.1 (2018-10-21)
+	- Fix issue with too long navbar banners
+	- Fix menu item edit link
+	- Fix issue with jquery file upload
+
+
+Hubzilla 3.8 (2018-10-19)
+	- Re-implement basic build test via gitlab-ci
+	- Rework wiki encoding/decoding
+	- Implement improved worker (experimental - off by default)
+	- Rework hubzilla settings infrastructure
+	- Port the features to stand-alone apps
+	- Add app_destroy hook
+	- Improve mod network search
+	- Extend app_install() to allow installing by app name
+	- Remove tech levels
+	- Hide channel creation form when at or over service_class['limit_identities']
+	- Rename groups and group_members tables for MySQL 8 compatibility
+	- Improve checks for image magick and pdo at setup
+	- Allow a second url in apd files for settings
+	- Add contact autocomplete to mod photo comments
+	- Add hook to allow addons to filter the list returned by app_list
+	- Do not sync channel moved field
+	- Add attach_delete hook
+	- Catch errors in template rendering
+	- Provide a noscript_content switch for mod channel and display
+	- Install and update bootstrap via composer
+	- Improve cover-photo handling
+	- Improve notification handling on small screens
+	- Detect and automatically repair duplicate plugin hook scenarios
+	- Add dreport_process hook
+	- Redirect stdout/stderr on cron command
+	- Update composer libs and add ramsey/uuid
+	- Add hook to extend conv_item cog dropdown menu
+	- Trigger the query options off of the active module rather than passed parameters in first_post_date()
+	- Tweak archive widget for articles
+	- Add api_not_found hook
+	- Ignore deleted hublocs in zot finger
+	- Don't use "checkjs" with an associated page reload - wrap a static copy of the content in noscript tags instead
+	- Add possibility to override helpfiles
+	- Add support for overriding the default template location and individual templates via .htconfig.php
+	- Add table support to markdown
+	- Make channel_remove less memory hungry
+	- Prevent json-ld bombing
+	- Turn off browser autocomplete on channel sources creation
+	- Add alter_pdl hook
+	- Add ability for addons to create .pdl files and load them automatically
+	- Sanitise vcard fields
+	- Don't sync system apps
+
+
+	Bugfixes
+	- Fix issue with timeago plurals
+	- Fix issue with HTTP signatures
+	- Fix issues with channel import
+	- Fix double linebreaks in viewsrc output
+	- Fix jsonld signature issue (library is using sha1, spec requires sha256)
+	- Fix bookmarks not syncing between clones
+	- Fix combined view getting lost when deleting first message in pm thread
+	- Fix authors unable to comment on posts they authored when owned by others in certain circumstances
+	- Fix syschannel included in total channels count
+	- Fix html-to-markdown adds a backslash infront of a hash after each new line
+	- Fix profile likes dropdown
+	- Fix tags corruption when editing posts
+	- Fix duplicate info() messages
+	- Fix zid leaking to nonzot sites if markdown is enabled
+	- Fix app delete issue with base installed apps and app photo being reloaded uneccessarily
+	- Fix app update and ownership issues
+
+	Addons
+	- Upgrade Info: new addon to inform channel owners about system upgrades
+	- Superblock: fix issue with not removeable channels
+	- Cart: fix subscription table not created on install
+	- Hsse: new addon - a WYSIWYG editor for certain modules
+	- Rainbowtag: convert to app infrastructure
+	- Superblock: convert to app infrastructure
+	- Send ZID: convert to app infrastructure
+	- Adultphotoflag: move setting to mod photos
+	- GNU-Social: convert to app infrastructure
+	- Pubcrawl: convert to app infrastructure
+	- Startpage: convert to app infrastructure
+	- Wppost: convert to app infrastructure
+	- Diaspora: convert to app infrastructure
+	- Mdpost: move setting to editor settings
+	- Cart: convert to app infrastructure
+	- Cart: reflect renaming of groups table
+	- Authchoose: convert to app infrastructure
+	- Channelreputation: new addon - reputation system for community channels (forums, etc.)
+	- Diaspora: fix commenting on diaspora reshares
+	- Gallery: convert to app infrastructure
+	- Nsfw: convert to app infrastructure
+	- Diaspora: change top level retraction type from StatusMessage to Post
+	- Delivery Notice: new addon - display delivery status information at the top of items
+	- Diaspora: exclude xchan_networks rss, anon and unknown from the query to make the results more reliable
+	- Diaspora: provide xchan_url if we have no xchan_addr for mentions
+	- Diaspora: fix x-social-relay tags converted to associative array
+	- Twitter API: improvements for the twidere client
+	- Pubcrawl: partial support for inbound AP events
+	- Pubcrawl: add support for image objects
+	- Gallery: provide a way to direct link to a photo album gallery
+	- Pubcrawl: improve can_comment_on_post handler
+	- Pubcrawl: implement pleroma quirks regarding follow activities
+	- Cart: add ability to create catalog entries for physical and/or manually fulfilled items
+	- Cart: add subscriptions submodule
+
+
+Hubzilla 3.6 (2018-07-25)
+	- Update jquery.timeago library
+	- Implement Hookable CSP
+	- ActivityStreams: accept header changes to support plume
+	- Streamline inconsistencies in addon naming
+	- SECURITY: hash the session_id in logs
+	- Update justified gallery library
+	- Hide channel in /cloud root if channel is hidden in directory
+	- Add resend option to channel sources tp discard original author.
+	- Provide flag to exclude privacy groups for federation plugin use in collect_recipients()
+	- Upgrading from redmatrix is no longer supported
+	- Deal with htmlentity encoding during authentication workflow
+	- Rework mod group
+	- Make droping posts of removed connections more memory efficient
+	- Refactor getOutainfo() for DAV storage
+	- Optionally report total available space when uploading
+	- SECURITY: provide option to disable the cloud 'root' directory and make the cloud module require a target channel nickname
+	- Add plink and llink to viewsource
+	- Add new 'filter by name' feature
+	- Remove network tabs
+	- New activity filter widget
+	- New activity order widget
+	- Make menus editable by visitors with webpage write permissions
+	- Move forum notifications to notifications
+	- Move manage privacy groups to the panel channel menu
+	- Don't remove items that are starred, filed, or that you replied to when removing a connection
+	- Don't deliver local items more than once
+	- Make navbar search use the module search function in /network and /channel
+	- Paint the locks on private activitypub items red. Their privacy model is "slightly" different from hubzillas
+	- Improve new channel creation workflow
+	- Add hook 'get_system_apps'
+	- Implement reset button for jot
+	- Adjust accept header to make pleroma happy
+	- Provide a general purpose GDPR document
+	- Provide function to fetch photo contents from url
+	- Make get_default_profile_photo() pluggable
+	- Refactor tags/mentions
+	- Refactor autocomplete mechanism
+	- Display pubsites link in info area if invite only
+	- Add cancel button to editor
+	- Implement MessageFilter for pubstream and sourced messages
+	- Add supported protocols to siteinfo
+	- Allow pdf embeds
+	- Allow uninstall of plugins which no longer exists via cmdline tool
+	- Improve the homeinstall script
+	- Provide easy access to the autoperms setting for forum and repository channels
+	- Implement admin delete of files, photos and posts
+	- Allow a different username to be used when importing a channel
+	- Provide warnings about profile photo and cover photo permissions
+	- Set the 'force' flag on attach_mkdir when initiated from a DAV operation
+
+	Bugfixes
+	- Fix double file uploads when dropping files into jot
+	- Fix jot collapsing when drag and drop to open jot
+	- Fix wrong album name when moving photos
+	- Fix wrong timestamp localization before first update in mod mail
+	- Fix post exiration not propagated to other networks (which support it)
+	- Fix sys channels visible in dirsearch
+	- Fix remote_self not working correctly
+	- Fix photos not syncing properly if destination is a postgres site
+	- Fix wrong hubloc_url for activitypub hublocs
+	- Fix z_check_dns() for BSD
+	- Fix not null violation in oauth1
+	- Fix DB issues with oauth2 on postgresql
+	- Fix 'anybody authenticated' not correctly handled in can_comment_on_post()
+	- Fix postgres issue if register mode is set to yes - with approval
+	- Fix tag search not finding articles
+	- Fix issue with mentions when markdown post addon is enabled
+	- Fix duplicate addressbook entries on repeated channel imports
+
+	Addons
+	- Cart: various display improvements
+	- Cart: make cart work with postgresql DB backend
+	- Cart: add new hzservice for service_classes
+	- Cart: add storewide currency settings
+	- Cart: provide channel app 'Shop' for cart addon
+	- Cart: implement order updating
+	- Cart: use CSP hook for paypals checkout.js
+	- Cart: provide a cancel mechanism for orders
+	- Cart: add paypal button
+	- Gallery: new addon to display photo albums with the photoswipe library
+	- Ldapauth: optionally auto create channel
+	- Pubcrawl: new setting to ignore ActivityPub recipients in privacy groups
+	- Diaspora: fix issue with displaying multiple photos
+	- Pubcrawl: provide plink
+	- Pubcrawl: hubloc_url should be baseurl, not actor url
+	- Pubcrawl: deliver restricted posts from hubzilla as direct messages (there is no other way to address only a subset of followers in mastodon)
+	- Pubcrawl: address comments to a restricted mastodon post to /followers
+
+
+Hubzilla 3.4.2 (2018-07-19)
+	- Compatibility fix for future versions
+
+
+Hubzilla 3.4.1 (2018-06-08)
+	- Say bye, bye to GitHub and move sourcecode repositories to #^https://framagit.org/hubzilla
+	- When removing a connection, don't remove items that are starred, filed or replied to
+	- Do not show archived forums in forum widget
+	- Fix potential XSS vulnerabilities
+	- Translation updates
+	- Fix postresql issue with oauth2
+	- Improve abconfig queries
+	- Fix postgresql issue if register mode was set to yes - with approval
+
+	Addons
+	- Diaspora: fix likes of non-contacts not allowed to like allthough diaspora_public_comments is set
+	- Pubcrawl: fix wrong hubloc url
+	- Pubcrawl: fix issues with attachments
+	- Pubcrawl: fetch required item metadata in asfetch_item()
+	- Cavatar: use cavatar for all default profile photos if enabled
+	- Pubcrawl: fix peertube video display
+	- Pubcrawl: fix incoming activitypub comments not getting propagated downstream
+	- Statistics: fix .well-known/nodeinfo
+	- Pubsubhubbub: fix postgresql related issues
+	- Pubcrawl: send the original LD-signature signed activity when distributing comments downstream if we have it
+	- Cavatar: improve the image creation process
+
+
+Hubzilla 3.4 (2018-05-04)
+	- Provide warnings about profile photo and cover photo permissions
+	- Don't duplicate addressbook entries on repeated channel imports
+	- Where possible strip zid parameter from links that get pasted into posts so that they will get a correct zid when rendered
+	- Rename boxy schema to Focus-Boxy
+	- Rename BS-Default schema to Focus-Light
+	- Mark simple_* schemas unmaintained and deprecated - they will be removed in next release if nobody steps up to maintain them.
+	- Implement trending tags for mod pubstream
+ 	- Relax restrictions to the design tools menu to allow those with write_pages permission
+	- Add alt pager to mod moderate
+	- Show existing cover photo when changing it
+	- Update to bootstrap lib to version 4.1
+	- Provide a higher accuracy method for active channels information
+	- Provide visible star status for starred posts
+	- Move the thread author menu to the wall item photo
+	- Accept system_language through either get or post
+	- Remove recipient name from stored notifications but keep them in emails
+	- Fix issue of being forced to log back in after leaving a delegated channel
+	- Implement last commented expiration setting in mod admin
+	- Create catcloud widget and provide a type option which can include 'cards' or 'articles'
+	- Modified notifications widget to add the public stream when the current user is allowed to see it only
+	- Don't provide a connect button for transient identities
+	- Merge techlevels and features
+	- Implement auto-save posts and comments in browser using localStorage
+	- Display directory server in siteinfo.json
+	- Bring back the dnt policy document
+	- Implement OAuth2/OpenIDConnect server
+	- Add basic structure for additional features documentation
+	- Community tag refactor
+	- Obscurify chats
+	- Provide a way to share wiki pages
+	- Update folder timestamp on uploaded files
+	- Code optimisations and de-duplication on updating parent commented timestamp
+	- Turn newmember widget into a feature
+	- Make list mode work in cards and articles
+	- Make alt pager work for articles and cards
+	- Initial support for alternative sort orders on the cloud pages
+	- Add Ochannel module for testing OStatus bad behaviour
+	- Add the social - federation permission role
+	- Update justified gallery lib from 3.6.3 to 3.6.5
+
+	Bugfixes
+	- Fix regression with forum widget unseen count
+	- Fix issue with imagemagick exif info
+	- Aonymous comments in StdLimits shouldn't be allowed
+	- Fix wiki pages not syncing
+	- Show "Unseen public activity" channel setting when site only public streams are activated
+	- Fix channel import failing to provide channel_password value
+	- Fix permalinks to children of articles and cards
+	- Fix missing year on profile birthday input
+	- Fix missing login/out buttons for medium screensize
+	- Preserve existing categories when updating an app from an embed source
+	- Fix app sellpage not being stored
+	- Fix tagadelic being overly protective of permissions
+	- Fix comments not displayed in single card/article view
+	- Fix anonymous comments bump thread
+	- Fix pending registrations visible in admin accounts
+
+	Addons
+	Pubcrawl: fix issues with "private" messages
+	Pubcrawl: fix issues with postgresql
+	Fuzzloc: new addon to blur your browser location
+	Pubcrawl: implement follow by webfinger
+	Cart: new addon which provides online shop functionalities (experimental)
+	Pubcrawl: implement two-way summary functionality
+	Wordpress: upgrade incutio xmlrpc library to use hubzilla curl wrapper
+	Hzfiles: various fixes
+	Diaspora: support full_name attribute in profile messages
+	Frphotos: deprecate plugin (keep it for reference)
+	Webmention: require html5 parser
+	GNU-Social: provide alternative xchan_url
+	Diaspora: fix wrong callback function
+	Diaspora: fix conversion of forum mentions to markdown by providing a !{forum@host} link syntax
+	Diaspora: fix item title not transferred
+
+
+Hubzilla 3.2 (2018-03-09)
+	- Improve rendering of Readme files in plugin settings
+	- Add pdl file for mod moderate
+	- Update redbasic theme screenshot
+	- Restrict mail messages to max_import_size
+	- Add pdl file for mod thing
+	- Add federation property to webfinger
+	- Provide new member widget which sits beneath the notifications for the first 60 days after an account creation
+	- Rename Addon/Feature settings to Addon Settings
+	- Move privacy groups to the newly created Access Control and Permissions tab
+	- Move oauth_client management and guest access tokens to features rather than auto-enabling at various feature levels
+	- Change undo_post_tagging() to emit quoted tags rather than using underscore replacement if they contain spaces
+	- Require directory servers to be using some modern form of encryption
+	- Change icon set from font-awesome to fork-awesome
+	- Provide opt-out link and text with notification emails
+	- Alter image selection widget to accept/submit on choose (github issue #979)
+	- If hide_in_statistics is set, only include the total channels count and no other statistical info in siteinfo.json
+	- Mark connections where we do not have post_comments permissions with an no entry sign
+	- Click your own profile photo to change it if loged in
+	- Remove street address info from the default basic profile fields
+	- Handle error logging in on cloud page (post method not implemented)
+	- Cloud 'view-as-tiles' toggle wasn't available for guests and they are the most likely to prefer that view
+	- Provide DB compatibility for poll and voting implementations across several platforms
+	- Remove the unused ZotDriver and ProtoDriver classes
+	- Move dreport from zot to lib
+	- Move Zotlabs\Zot\Verify to Zotlabs\Lib\Verify as part of the zot6 re-org
+	- Add event resource_id to iconfig so Diaspora can search on it without looking inside JSON objects
+	- Trim non-existent/deprecated plugins from siteinfo plugin list
+	- Add 'Validate' button to new_channel page
+	- Do not show summary if it is equal to body
+	- Update code tag styling so bbcode [code] blocks and wiki markdown inline code render nicely
+	- Crypto improvements (use pkcs1_oaep_padding instead of the older pkcs1_padding)
+	- Refactor OAuth2Server a bit
+	- Refactor of the DB update system
+	- Extend the oauth2 storage driver so that we can use our own channel table
+	- Provide option to block the public stream unless authenticated
+	- Refactor shares and urn shares into activities
+	- Show likes and dislikes in notices if always_show_in_notices is set
+	- Add hidden config to disallow anonymous comments (github issue #972)
+	- Add flexibility to prefix/suffix string translations for jquery.timeago
+	- Make post titles searchable (github issue #975)
+	- Implement zot6 delivery
+	- Remove mobile_detect library
+	- Separate the parsing of author information from the parsing of item/activity information in feedutils
+	- Provide summaries in feeds under very limited cases
+	- Redirect to the email_validation page if login was attempted after account creation but prior to successful verification
+	- Iprove workflow for form based email validation when auto_channel_create is in effect
+	- Provide a default video image if nothing else is available
+	- Surface the ability to change the landing page after channel creation
+	- Create the 'go' module to present several possible things to do after channel creation
+	- Add unit test for dba_pdo driver class
+	- Add unit test for \DBA factory
+	- Usability improvements to registration/verification workflow
+	- Don't do any bbcode translation within code blocks (except baseurl, observer, and linefeeds)
+	- Improve browser language detection
+	- Remove unused prototype importer template and obsolete reflection cms importer
+	- Update to bootstrap 4 stable
+	- Implement caching of notifications in browser session storage
+	- Code cleanup and simplification in mod_like
+	- Implement new cropper library
+	- Better notifications for edit post/comments which may have been originally posted long ago
+	- Ensure filter words are not empty in include/items.php
+	- Change query in mod search to be compatible with postgres
+	- Provide channel list function in the zot api
+	- Remove deprecated 'qcomment' feature
+	- Simplify webserver logic flow
+	- Simplify interactions with the get_features hook
+	- Provide a local pubstream option (content from this site only)
+	- Simplify dir_tagadelic dramatically
+	- Surface the article feature
+	- Add summary bbcode tag
+	- Move markdown-in-posts/comments feature to plugin
+	- Support tables in markdown posts/comments
+
+
+	Bugfixes
+	- Fix javascript error if there are no notifications
+	- Fix some issues with friend suggestions on standalone sites with no 'suggestme' volunteers
+	- Fix unable to reset profile fields to defaults in admin/profs by emptying the textarea
+	⁻ Fix issues with accordions related to bootstrap upgrade
+	- Fix empty dob is set to the date of the first profile save
+	- Fix several email validation issues
+	- Fix issue if logged in locally and mod_display returns nothing owned by your uid; retry with known public uids rather than issue 'permission denied'
+	- Fix public stream app permission check to match the recent fixes to the Module
+	- Fix issues with delivery of edited posts to forums
+	- Fix autoname test
+	- Fix issue where self and pending connections were visible in connections when not loged in
+	- Fix bad query in mod defperms
+	- Fix issue where gnusocial likes were not recognised as like activity
+	- Fix manual queue invocation
+	- Fix unable to delete accounts using tickboxes on admin/accounts
+	- Fix a PHP7.2 warning when a channel has no cards
+	- Fix unable to delete permission groups with space in name (github issue #920)
+
+	Addons
+	Statistic: fix reporting of incorrect register policy in nodeinfo
+	Diaspora: diaspora_init_relay: calls diaspora_import_author with too many arguments
+	Pubcrawl: provide a system 'allowed' for to match the system setting for other protocols
+	Diaspora: fix issue with sending diaspora profile change messages over diaspora_v2
+	Diaspora: provide limited but hopefully adequate support for new Diaspora html5 audio/video
+	Pubcrawl: send zot context with follow requests
+	Pubcrawl: add video to the set of message types we process
+	Pubcrawl: support for activitypub media
+	Openclipatar: remove extra details for each image
+	Diaspora: initial work on event participation
+	Statistic: remove the friendica protocol from nodeinfo until it is fully implemented
+	Statistic: re-arrange the order of the .host-meta/nodeinfo links
+	Pubcrawl: add share verb to activitystreams translator
+	Pubcrawl: post public posts to syschannel
+	Statistics: fix legacy statistics.json interface
+	Gnusocial: improve error checking when processing a salmon message
+	Dirstats: fix sql syntax error
+	Pubcrawl: possibly reduce constraint violations for xchan_store_lowlevel (duplicate entry)
+	Diaspora: ensure we process Friendica-over-Diaspora yearless birthdays correctly
+	Chess: added simple history browsing controls to spectator view
+	Diaspora: support post/comment edits
+	Diaspora: don't redirect fetch requests for non-Diaspora wall-to-wall and forum posts unless they can be redirected to a Diaspora protocol site
+	Chess: added support for publicly visible games
+	Phpmailer: add quickstart notes
+	Chess: choose random color if no color is chosen
+	New Plugin: mdpost - markdown in posts/comments, migrated from core to addon
+	Diaspora: provide a configuration option to import the diaspora firehose, otherwise only import content matching subscribed tags
+	NSFW: load images only after click on the button
+	Twitter: provide configurable tweet length until such time as 280 becomes universal
+
+
+Hubzilla 3.0 (2018-01-09)
+	- Updated homeinstall script
+	- Sort cloud directory by 1. is_dir and 2. name
+	- Document that imagick calls/execs ffmpeg for mp4 video thumbnails
+	- Use pipe_stream() instead of file_{get, put}_contents() in attach_store()
+	- Make homeinstall script ready for Debian 9
+	- Add url and headings to bbco_autocomplete()
+	- Remove additional linebreaks after headings
+	- html2bbcode: use headings bbcode for headings
+	- Don't zidify all permalinks, only zot permalinks
+	- Make remote homelink link to the home host and not to the home channel
+	- Auto promote beginner (techlevel 0) accounts to level 1 after they show signs of active participation.
+	- Go back to including the photo thumbnail data in the export file.
+	- Improvements to file import/export
+	- Default value for xlink_rating_text
+	- Implement IMoveTarget and recursive file/directory move/rename - github issue #680
+	- Synchronise an attach_move operation to clones
+	- Provide a themed page with an error notification on errors instead of an obtuse XML error structure in mod cloud
+	- Disallow backslashes in wiki and wiki-page names
+	- We only require one update module. The rest are superfluous.
+	- Render installable elements as buttons instead of links
+	- Implement chunked uploads for photos page
+	- Remove warning for large files on cloud upload
+	- Add a filter for notification to show new posts only
+	- Implement chunked uploads for cloud
+	- Use httpsig auth for getfile
+	- Load the profile images in the custom acl selector only if we actually need them
+	- Rework liveUpdate() and notificationsUpdate() (aka ping) to first do the liveUpdate and when this is done only do the ping once.
+	- Don't include invisible "update activities" in category widget
+	- Default profile assign
+	- Provide system config option for minimum registration age.
+	- Remove deprecated $a argument from advanced_profile()
+	- Change to bbcode calling parameters
+	- Extra checking of server headers in upload functions
+	- Provide a handler for chunked uploads in mod file_upload
+	- Optional divider between item header and body
+	- Allow toggle to SMBC scaling mode.
+	- Add thumbnail hook
+	- Implement SVG thumbnails and expose security setting
+	- Implement video thumbnail generator
+	- Implement pdf thumbnails
+	- Implement thumbnail generator for epubs
+	- Make browser history buttons work with ajax calls in mod display and hq
+	- Implement tile view for mod cloud (read only)
+	- Add mp3 audio thumbnail generator
+	- Set display_path for photo_upload from the DAV File interface
+	- Provide a generalised interface for thumbnail generators to support various content types
+	- Add ID3Parser library.
+	- Text thumbnails in cloud tile mode
+	- Revisit media breakpoints - do not switch to mobile view to early.
+	- Add French to help pages language dropdown selector
+	- Inroduce the HQ module - an alternative landing page for hubzilla
+	- Strip author name from notify messages in notifications - github issue #911
+	- Remove column item.diaspora_meta
+	- Provide ability to pin apps to navbar from mod apps
+	- Add private forums to forum widget
+	- Move notifications style to widgets.css
+	- Sort out a few more large image upload issues
+	- Move notifications full-screen handling to notifications widget
+	- Move mailhost settings from plugin to core
+	- Sort combined private mail conversations by latest updated conversation instead of created parent
+	- Filter atokens on acl search
+	- Allow a site to block (public) the directory separately from other resources.
+	- Improve removed_channel final cleanup - github issue #386
+	- Cleanup of upload_to_comments(
+	- Dedicate the first click to slideup the cover again but make sure the nav buttons remain functional
+	- Set os_syspath in DAV file put operation so that photos will scale correctly.
+	- Unit tests for Zotlabs\Access classes
+	- Bring back tabindex to submit comments
+	- attach.php minor cleanup and doc
+	- Allow cloud filenames to include ampersands without messing up auth tokens (zid, owt, and zat, and the constant placeholder 'f=')
+	- Provide short localised summary for likes that will end up in displayed notifications
+	- Improving Doxygen documentation.
+	- Update item_normal() to not include ACTIVITY_OBJ_FILE obj_type
+	- Sort out issues with pubstream item interactions
+	- Don't perform zot_refresh on dead sites unless $force is set
+	- Do not send message_list responses to dead sites (this delivery method bypassed the notifier)
+	- Support for netselect query
+	- Add another delivery control parameter (queue threshold)
+	- Add some documentation about shareable widgets
+	- Allow plugin class widgets
+	- Some more work on unit tests
+	- Encrypt the owa token
+	- Bring back the markdown post feature
+	- We call Theme:url() statically, make it also static.
+	- Table structure for pseudo or proxy channels (pchan)
+
+	Bugfixes
+	- Fix sync non-default profile photo changes to clones - github issue #113
+	- Fix prev/next buttons on connedit can show deleted connections - github issue #673
+	- Fix affinity widget settings
+	- Fix dupe bug in content hooks - github issue #943
+	- Fix directory keywords returned from dir_tagadelic() in standalone mode
+	- Fix argument warning when arguments are correct in util/dcp
+	- Fix issue with long filenames in mod cloud
+	- Fix misc. issues with new 'insert photo from photo album' github issue #475
+	- Fix regression in channel sources delivery
+	- Fix loading of theme-specific widgets
+	- Fix unable to add wiki pages with spaces
+	- Fix mod display and others that require a non-zero profile_uid for updates
+	- Fix various PHP 7.2 issues
+	- Fix typo in HTTPSig
+	- Fix pagetitle lost importing a pdl element from conversation
+	- Fix js warning - getelementbyid (id doesn't exist)
+	- Fix some pubstream on/off weirdness
+	- Fix default addressbook has no name - github issue #921
+	- Fix double html ids in caldav widget if more than one sharee
+	- Fix regression in cdav calendar widget
+	- Fix sync packet not generated when deleting a file using the web browser interface
+	- Fix album cover thumb generator
+	- Fix like-button for images - github issue #826
+	- Fix typo - github issue #910
+	- Fix issue with group_rmv()
+	- Fix php warnings on photo delete
+	- Fix some conflicts between private tags and forum tags
+	- Fix some schema issues
+	- Fix wiki pages not updating after creating new page
+	- Fix a PHP warning in Permissions::FilledPerms()
+	- Fix unicode characters in urls tripping up url regexes - github issue #901
+	- Fix second half of github issue #893
+	- Fix common connections on suggestion page showing wildly different results than remote profile, and is consistently off by one
+	- Fix cloud redirects with owt tokens
+	- Fix issues with diaspora xchans
+	- Fix memory overflow trying to delete a connection with a very high noise to signal ratio
+	- Fix sql error in page module
+	- Fix unstar
+
+	Plugins/Addon
+	Diaspora: fix 'view full size' photo link - core github issue #947
+	Diaspora: implement recent changes in diaspora account_migration spec
+	GNU-Social: fix uploading a photo to a post results in double post - github issue 75
+	GNU-Social: fix gnusoc plugin not respecting delayed delivery - github issue 74
+	Pubcrawl: fix PHP warning
+	Diaspora: remove garbage from magic envelope
+	Diaspora: fix permalinks for zot reshares
+	New addon: hzfiles - sync files across hubzilla servers
+	Fix various PHP 7.2 issues
+	Remove Firefox social plugin - it was deprecated and removed in firefox version 57
+	Diaspora: unset id and parent for local comments
+	Pubsubhubbub: set interactive flag to avoid delivery killing if block_public is enabled
+	Mailhost addon moved to core
+	Remove js_upload addon
+
+
+Hubzilla 2.8.1 (2017-11-11)
+	- Rename channel app events to calendar and add nav_set_selected() to /cal
+	- Load notifications links to /display via ajax if we are already in /display
+	- Add location info to the navbar for remote visitors
+	- Bring back tabindex to submit comments
+	- Add spanish translations for context help
+	- Added mode to portfolio widget
+
+	Bugfixes
+	- Fix os_syspath in DAV file put operation so that photos will scale correctly
+	- Fix unicode characters in urls tripping up url regexes - github issue #901
+	- Fix wiki pages not updating after creating new page
+	- Fix notifications covered by cover photo on medium size screens - github issue #906
+	- Fix unable to change permissions on wiki with space in name
+	- Fix only show nav app link if we have a selected app
+	- Fix unable to mark all messages read
+	- Fix imagedata not set correctly if large photo and imagick is not installed
+	- Fix issues with diaspora xchans
+	- Fix profile photo issue triggered by a previous bug
+
+	Plugins/Addon
+	N-S-F-W: improve the undocumented n-s-f-w author::word feature
+	Diaspora: update the import_diaspora tool for the version 2.0 account export files
+	Diaspora: fix comments are partly containing "diaspora_handle" instead of "author" - github issue #69
+	Pubcrawl: provide feature setting for downgrade_media option
+	Pubcrawl: fix issue where replies to replies did not find its parent
+	Diaspora: fix friendica likes on comments
+	Diaspora: fix private mail
+	Diaspora: fix third party deletes/retractions not propagating
+	Diaspora: likes not working - github issue #895 in core
+	Diaspora: fix comments from unknown persons not accepted if allow public comments is enabled - github issue #68
+	XMPP: fix php warning
+
+Hubzilla 2.8 (2017-10-25)
+	- Redirect to be moderated items to /moderate
+	- Update notifications if notifications area remains open
+	- Create an actual logout module instead of relying on internal variables
+	- Add local_channel as a comanche condition variable
+	- Implement possibility to pin app-tray apps in the navbar via app category navbar_default
+	- Introduce custom navbars
+	- Re-implement single delivery
+	- Pdledit usability improvements
+	- Implement next generation notifications in right aside
+	- Implement single post view for /pubstream
+	- Make anonymous comments work in mod display
+	- Introduce notifications for unseen public stream posts (off by default)
+	- Preperatory work on Zot VI
+	- Add app for site admin
+	- Introduce experimental alternate channel_menu navigation (off by default)
+	- Introduce notifications for shared files
+	- Bring back notifications for account approvals
+	- Urlencode hashes from mod_acl
+	- Don't use chanlink_url() for feed mentions
+	- Design common friends widget to fit better in the app and move it to left aside
+	- Allow navbar to be used when cover photo is displayed in mod channel
+	- Implement admin setting to use imagick converter for large photos
+	- Process activity deletes from OStatus which for whatever reason do not use the industry standard tombstone mechanism
+	- Implement new css based spinner
+	- Move the link header initialisation from Router to Webserver
+	⁻ Extend activity_match() to work with arrays
+	- Updated the trusted CA cert database
+	- Ostatus - support likes of comments
+	- Provide ability to mention a forum by using !forumname as well as the traditional red style (@forumname+)
+	- Encrypt delivery reports (not backward compatible)
+	- Provide a space between link header params (draft-cavage-http-signatures-08)
+	- Turn common_friends into a widget
+	- Update to jquery-3.2.1
+	- Wiki pages sorted by name
+	- Create new hooks for permissions_accept and permissions_reject
+	- Provide rel=alternate link if no reshare content in post
+	- Add remote login button to login page
+	- DB update to add index to item.resource_id
+	- Implement wiki editing (name and acl)
+	- Provide a hook for importing a channel photo at channel creation time
+	- Implement wiki mimetype lock
+	- Bring back wiki downloads
+	- Add text/plain mimetype to wiki
+	- Implement per page mimetype selection for wikis
+	- Added english context help for apps and appman
+	- Implement owa (open web auth)
+	- Ignore diaspora_meta column on item import
+	- Check code permissions on cloud files
+	- Remove period from characters allowed in username
+	- Make comment highlighting more reliable
+	- Sign zot-info packets with httpsignatures
+	- Implement server to server magic auth
+	- Provide support for json-ld signatures
+	- Rewrite comment form open/close handling to be more reliable
+	- Radically reduce code duplication in updateConvItems()
+	- Remove discover tab in favour of the public stream app
+	- Apply autotime to all autotime classed elements when static loading a page
+	- Implement cards feature
+	- Extended support for help page translations including table of contents files at the top level
+	- Introduce util/dmkdir - a mkdir tool for DAV
+	- Various doco improvements
+	- Introduce util/dcp (DAV-copy) - copy file or directory from local system to Hubzilla
+	- Provide support for HTTPsig
+	- Implement mechanism for selective network following in protocol connectors (diaspora, ostatus, activitypub, zot, rss)
+
+	Bugfixes
+	- Fix w2w posts not removed in contact_remove() - github issue #837
+	- Fix guests not having a unique (non-existent) url
+	- Fix mod register re-using the password
+	- Fix write_storage permission not checked in /display
+	- Fix discovery of moderated items in enotify
+	- Fix profile thing image not deleted when thing deleted - github issue #868
+	- Fix deletions to comments not synced on wall posts
+	- Fix community tags not preserved on post edit - github issue #865
+	- Fix profile photo propagation issue if the local xchan_photo_[l|m|s] fields were changed from the /photo/profile/l/n form to photo/[hash] form by a clone operation
+	- Fix lockstate and current permissions not handed over to editor in mod card_edit
+	- Fix profile edit dropdown for multiple profiles
+	- Fix affinity slider spinner
+	- Fix mod pubsites broken
+	- Fix directory server admin selection includes known dead sites
+	- Fix sticky-kit issue where the bottom of left aside was not visible when section content was short
+	- Fix possibility to set bogus my_address
+	- Fix deleting of wiki pages
+	- Fix selected theme not appearing selected after change - github issue #855
+	- Fix an issue where some encoded mids were not found in /display
+	- Fix issue with mentions and xchans with @ or /
+	- Fix webfinger returns invalid XML - github issue #851
+	- Fix last remaining task in tasklist was not removed from view when completed
+
+	Plugins/Addon
+	Hubwall: Remove errant $1 string in sender name
+	Map federation protocols for zotinfo
+	Gnusoc: force ostatus profile photos to get refreshed monthly
+	Gnusoc: fix ostatus mention notifications
+	Gnusoc: unsubscribe to gnusoc feeds if connector is disabled
+	Phpmailer: not using load/unload
+	Gnusoc: don't provide some information if gnusoc is disabled by the channel
+	Diaspora: add a predelivery interval
+	Diaspora: support for likes on comments
+	Introduce the pubcrawl plugin - an unapologetically non-compliant ActivityPub Protocol implemention
+	Introduce gravatar plugin
+	Pubsubhubbub: produce much more compact PuSH feeds
+	Diaspora: support text comments on reshare posts
+	Diaspora: changes to delivery scenarios for the special handling of profile messages
+	Diaspora: put diaspora seed_location in json webfinger
+	Gnusoc: fix mis-attributed comments from mastodon
+	Gnusoc: allow discovery by url (not just reddress) and permit upgrade from 'unknown' network to gnusoc
+	Implement mechanism for selective network following in protocol connectors
+
+
+Hubzilla 2.6.3 (2017-09-18)
+	- Fix anonymous comments/likes on photos - this is not yet implemented
+	- Fix favicon not displayed on certain pages
+	- Fix hubzilla logo icon for favicon and email notifications
+	- Fix an issue with displaying selected theme in settings/display
+	- [SECURITY] Restrict the input characters we accept in token verification strings to hex digits
+	- Remove hubzilla.nl from fallback directory servers
+
+Hubzilla 2.6.2 (2017-08-31)
+	- Fix webfinger returns invalid XML (github issue #851)
+
+
+Hubzilla 2.6.1 (2017-08-18)
+	- Fix a regression with dav clients
+	- Raise install requirements
+
+	Plugins/Addon
+	- Diaspora: fix PHP warning
+	- GNU-Social: fix PHP warning
+
+
+Hubzilla 2.6 (2017-08-16)
+	- Upgrade to bootstrap-4 beta
+	- Consolidate disable_discover_tab config
+	- Fix some bbcode to markdown conversion issues
+	- Improved finding of recursive attachment permissions
+	- Smaller line-height for notification badges
+	- Bluegrid schema removed - will be added again if someone is willing to maintain it
+	- Improved file_activity()
+	- DB - add index for item.obj_type
+	- Add options flag to bb_to_markdown() so we can distinguish between diaspora use and other use and therefore filter and adjust content selectively
+	- Close the apps-menu if the notifications-menu is open and vice versa
+	- Remove redundant call to jquery ready function in photo albums view
+	- Remove borders from navbar toggler in mobile view
+	- Improve the formatting of shares when converting from bbcode to markdown
+	- Suppress fopen errors from dav
+	- Make local channel (not our own) nav menus appear similar to what we are used from remote channels
+	- Indicate the selected channel in the dropdown menu if the feature is enabled
+	- Provide a mechanism to mark apps active in the app tray
+	- Allow wildcard tag and category searches
+	- Improved installer
+	- Update some addon docs and ensure we only generate statistics once a day
+	- Turn url requests where argv[0] is something.xyz into module='something' and $_REQUEST['module_format'] = 'xyz'; But leave modules beginning with . (like .well_known) alone (convert the initial . to _ and then strip it)
+	- Turn platform name and std_version into config variables
+	- Implement chunked uploads on the wall
+	- Prevent expiration of conversations you are involved with
+	- Update htmlpurifier to version 4.9.3
+	- Update sabre/http to version 4.2.3
+	- Add optimize-autoloader to composer config
+	- Missing abook_{my,their}_perms in pg schema and missing keys in mysql schema
+	- Provide a gender icon on the profile sidebar within reason
+	- Provide more comprehensible information on the admin summary page
+	- Upgrade blueimp from 9.8 to 9.18
+	- Chanview - if already connected, bypass the chanview intermediary page and go straight to the remote profile.
+	- Allow poke by xchan_hash
+	- guess_image_type() - ignore scheme when checking for urls
+	- Remove unused page_widgets.php include and provide a general function for loading sql from file
+	- Migrate cdav from addons to core
+	- Address several mail issues
+	- Add files and photos to featured apps by default
+	- import_author_zot() fixes
+	- Remove deprecated app parameter from conversation()
+	- Implement anonymous comments (like wordpress)
+	- Add rel=noopener to all external target _blank links
+	- Add 'can_comment_on_post' hook so we can better deal with the complications of Diaspora policy
+	- Added Portfolio widget (requires foundation)
+	- Convert schema_mysql engine to InnoDB and charset utf8mb4
+	- Put unreachable federated connections in the archived tab of the connections list page
+	- Indicate on connections page if a federated connection from another network is unavailable from the current location
+	- Make authenticated oembeds optional, default to false.
+	- Remove text_highlight css load from core
+	- Numerous ostatus feed improvements (mastodon, gnu-social)
+	- Provide hook when deleting a connection - we need this to clean up dangling PuSH subscriptions
+	- Move code syntax highlighting to plugin
+	- Oembed: ensure that width and height are returned as type int and not float
+	- Rewrite wiki pages widget - no need for ajax on pageload, show the pages to not authenticated people.
+	- Convert randprof to use chanlink_hash() instead of chanlink_url() and filter sys channels by xchan.xchan_system instead of xchan_addr != sys@%
+	- Update Sabre libraries
+	- Only provide "connected apps" on the settings menu if techlevel > 0.
+	- Provide ability to search webpage
+	- Move disapora xrd stuff to plugin
+	- Deprecate server_role
+	- Introduce automatic language selection for help, webpages, and wiki content
+	- Provide ability to order apps in app-tray
+	- Replace Markdownify library with html-to-markdown library
+
+	Bugfixes
+	- Fix channel manager and nav channel select visible if in a delegate session
+	- Fix wrong wiki pages in the sidebar github issue #841
+	- Fix a bug where if multiple channels uploaded the same file to the same folder, the uploaded file would end up with an incremental number added to the filename for each upload even if the file did not exist yet in the channels folder
+	- Fix privacy groups not syncing across clones properly (github issue #832)
+	- Fix an issue where the ability to use a portion of the message-id to display a message wasn't honoured in all cases
+	- Fix minor issues in the bs-default schema
+	- Fix backward compatibility for album links generated in earlier times before the ambiguity of photo album names was solved (github issue #827)
+	- Fix photo item comments not ported to bs4
+	- Fix incorrect album link
+	- Fix incorrect follow url in webfinger
+	- Fix regression - allow position attributes in oembedable zcards
+	- Fix affinitiy slider settings were being updated on any submit of of settings/featured
+	- Fix minor weirdness in zot finger results after deleting a clone from a channel that was on a site which was previously migrated from http to https and still had the old hubloc
+	- Fix cloud headers already sent issue
+	- Partial fix for failure to sync photos - appears to be memory exhaustion and dependent on filesize although an unrelated issue was found with directory creation during file sync (we didn't check ownership when looking for duplicates)
+	- Fix github issue #810
+	- Don't allow negative age in directory listings
+	- Fix allow setting a default schema for the hub (github issue #797) and allow selecting of focus (hubzilla default) schema if a default is set
+	- Fix update_r1189() for mysql and postgres
+
+	Plugins/Addon
+	Diaspora: Rewrite the addon to implemented Diaspora Version 2 federation protocol
+	GNU-Social: GNU-Social and Mastodon compatibility was greatly increased and a "fetch conversations" feature added to try and locate missing contextual references and maintain conversations in posts from those networks
+	Rename statistics_json to statistics and implement nodeinfo v2
+	New authchoose addon to restrict what sites you authenticate to by default
+	Cdav addon moved to core
+	head_add_css() needs a preceding '/' to find files in the addons dir
+	New addon code syntax highlighting (moved from core to addon)
+	Pubsubhubbub: specify a minimum number of records - otherwise it defaults to zero
+
+
+Hubzilla 2.4 (2017-05-31)
+	- Silence php warning during install
+	- Implemented switch statement logic in Comanche layout parser
+	- Don't allow html in plugin comment blocks
+	- Handle Mastodon urls in markdown/bbcode conversion
+	- Get rid of edit activities
+	- Collapse sysapps if viewing a remote channel
+	- Various Doxygen fixes
+	- Update SimplePie library to version 1.5
+	- Add check for PHP zip extension during install
+	- Add unit tests for AccessList class
+	- Authenticate onepoll so we can receive private posts/comments in zotfeed
+	- Various postgres fixes
+	- Some work on preparing clientside e2ee
+	- Allow to set a default channel for the rare case where a default channel is not selected but channels actually exist
+	- Support reverse magic-auth in oembed requests
+	- Improved handling of Mastodon feeds
+	- When template "none" is used in a webpage layout, then the contents of the page should be the sole output, with no other code before or after the page element content
+	- If there is no site record, site_dead won't be 0, in a left join it will in fact be null. As long as it isn't 1, we should attempt delivery
+	- Order wiki pages by creation date
+	- Backend infrastructure for channel protection password; which will be used to optionally encrypt export files and resolve channel/identity ownership/hijacking disputes
+	- Don't allow any null fields in notify creation
+	- Webfinger cleanup
+	- Envelope privacy
+	- We do not parse the body in discover_by_url(), so no need to preserve iframes in SimplePie
+	- Correct the mastodon "boost" (aka 'share') author attribution by checking for share activities and pulling the original author info from the activity:object
+	- Only log zot_refresh content if json decode was successful
+	- Revisit the import_author_zot algorithm yet again. There was one bug that we weren't returning necessary information in the first SQL query - and performance/loading problem if one tries to refresh a dead site
+	- Import_author_xchan - since we rarely refresh zot-info for non-connections, force a cache reload once a week to catch things like profile photo updates and location changes
+	- Create site_store_lowlevel() to initialise data structures for the site table
+	- Change hook for perm_is_allowed while retaining backwards compatibility
+	- import_author_zot() - check for both hubloc and xchan entries. This should catch and repair entries which were subject to transient storage failures
+	- Import authors from any unrecognised network as network 'unknown'
+	- Crypto update - default is now aes-256-ctr
+	- Get rid of get_app()
+	- Add 'author_is_pmable()' function with plugin hooks to control whether or not to display a 'send mail' link in the thread author menu
+	- Provide platform specific install script
+	- Allow for project specific DB updates
+	- Get rid of davguest
+	- Move db_upgrade to zlib
+	- Add CSRF protection for import and import_items
+	- Add some documentation for import functions
+	- Do not allow creating two wikis with the same name
+	- Update textcomplete library to version 1.8.0
+	- Create channel_store_lowlevel()
+	- Allow setting the system email name/address/reply
+	- Use the same host macro for sender address as for reply_to address
+	- Use the relevant attach directory/path for photo albums instead of an album basename which may not be unique. Created an 'ellipsify()' function to shorten long names and keep the beginning and end intact
+	- Simplify the message signing spaghetti
+	- Class MarkdownSoap to safely store markdown by purifying and preserving (escaped) what may be unsafe code in codeblocks. The stored item needs to be unescaped just prior to calling the markdown-to-html processor
+	- Remove the unimplemented upload limit site settings from UI
+	- Cleanup code_allowed
+	- Move widgets to standalone classes
+	- Upgrade redbasic to bootstrap 4
+	- Updated HTML Purifier from 4.6.0 to 4.9.2 with better PHP7 compatibility
+	- Remove redundant and non-functional/broken check for successfully cloned channel record which was left over from an earlier method of creating the table; which was deprecated a few months back
+	- Update bshaffer/oauth2-server-php library
+	- Add unit test for purify_html()
+
+	Bugfixes
+	- Fix website export tool creating invalid zip file - issue #790
+	- Fix files not synced correctly - issue #769
+	- Fix empty ACL should not result in no ACL when uploading a file
+	- Fix cover photo was unintentionally disabled when block_public in effect
+	- Fix markdown autolinks - issue 752
+	- Fix connectDefaultShare generated js function, though it isn't obvious if we still use it
+	- Fix a couple more instances where we were still calling mail() directly for site critical messages
+	- Fix when clicking a notification to view a private mail message, actually view that message instead of the most recent
+	- Fix group by item query
+
+	Plugins/Addon
+	- smileybutton: do not load emojis
+	- pubsubhubbub: fixes associated with recent compatibility feed mods
+	- gnusoc: mastodon follow_activity compatibility issues
+	- gnusoc: add profile photo to feed meta
+	- gnusoc: add salmon link information to the public feed when GNU-Social is enabled
+	- chess: fix bugs when deleting games
+
+Hubzilla 2.2 (2017-03-08)
+	- Provide version compatibility check for themes (minversion, maxversion)
+	- Use chanlink_hash() instead of chanlink_url() where appropriate
+	- Use head_add_link() for feed discovery
+	- Provide HTTP header parser which honours continuation lines
+	- Numerous doco improvements
+	- Implement virtual privacy groups from restricted profile access list
+	- Implement permission roles
+	- Implement app-tray
+	- Default to manual conversation updates
+	- Implement channel move for all server roles
+	- Implement nav login modal
+	- Rename bb2diaspora.php to markdown.php
+	- Remove obsolete module 'match'
+	- Move firefox social api configuration to plugin
+	- Move rsd service to twitter_api plugin
+	- Add build_pagehead hook
+	- Move opensearch to plugins
+	- Move dreamhost hack to plugin
+	- Add wiki permissions
+	- Introduce hubloc_store_lowlevel() and xchan_store_lowlevel()
+	- Move diaspora account import to the diaspora plugin
+	- Allow export of single data sets instead of always exporting everything we know about in channel export
+	- Queue optimisations for sites that have lingered in the queue for more than a couple of days
+	- Add affinity slider tool settings for min and max defaults in settings/featured
+	- Provide lowlevel xchan storage function to ensure that all non-null rows are initialised
+	- Implement native wiki
+	- Block well-known from oembed
+	- Implement observer.language bbcode and observer.language comanche conditional
+	- Implement daemon_addon hook to let plugins create custom background processes
+	- Implement profile vcards
+	- Implement connection vcards
+	- Implement 'click to call' in address book
+	- Default cover photo
+	- Remove fullscreen functionality in photo album view
+	- Update fontawesome lib to version 4.7.0
+	- Implement a menu to select a section to be open by default in connedit
+	- Improve comanche conditionals
+	- Add enclosures and categories to atom feed parsing
+	- Allow the atom_entry hook to change the results
+	- Set 'adjust for viewer timezone' as the default for new events
+	- Allow event creation in other timezones than your own
+	- Update fullcalendar lib to version 3.1
+	- Move api version call back to core
+	- Create first webpage as 'home' if none exist
+	- Show webpages link to visitors if a 'home' page exists
+
+	Bugfixes
+	- Fix schema not saved if session theme != selected theme and schema select display issue
+	- Fix no acl not detected in post_activity_item()
+	- Fix find_folder_hash_by_path() was not safe against multiple attach structures with the same filename but in different directories
+	- Fix don't search on empty filename - we shouldn't find it. The reason why this change is being made is because we actually did find it due to a development glitch
+	- Fix several places where head_add_(css|js) functions have been used incorrectly.
+	- Fix webpage import tool
+	- Fix numerous bugs with the addon repo management GUI
+	- Fix attach_delete() to remove photo resources even if the attach table row wasn't found
+	- Fix choking if photo_factory() returns null
+	- Fix embedimage if an albumname contains quotes
+	- Fix chat member list when one or more members are connected via access tokens
+	- Fix issue #636 - some localised (e.g. Italian) strings have single quotes which throw JS errors when used in single quoted template constructs
+	- Fix issues #629 and #635 - edited post arriving from downstream source was not being rejected
+	- Fix peoplefind widget not honouring directory option settings
+	- Fix issue with HTML in code blocks in markdown in wiki
+	- Fix issue with post signatures if posted from api and logged in locally with a different identity
+
+	Plugins/Addon
+	- Add experimental webmention plugin
+	- NSFW: Use button instead of text link
+	- Diaspora: gracefully handle multiple photos per post
+	- Diaspora: change profile photo permission call
+	- Logrotate: don't throw an error if another server process renamed the logfile before we got to it
+	- Chess: the channel owner must be one of the players, so only require selecting one connection for an opponent
+	- Move firefox social api configuration to plugin from core
+	- Move rsd service to twitter_api plugin from core
+	- Move opensearch to plugins from core
+	- Move dreamhost hack to plugin from
+	- Move diaspora account import to addon from core
+	- Reflect hubloc store changes in plugins
+	- Reflect xchan store changes in plugins
+	- Rendezvous: Fixed marker creation bug
+	- Rendezvous: Center on marker if specified in URL, and update browser address bar with shareable link when selecting markers on the map
+	- Rendezvous: Set default value of 0 for priximity alert when making new markers
+	- Move gitwiki to plugins from core which has been replaced by native wiki
+	- Openclipatar: reflect changes to files and photos which were unified in core some time ago
+	- Reintroduce gnusocial plugin after security/functionality review
+	- Twitter_api: hubzilla core issue 638 - unsupported message-id field not available in all twitter api functions
+	- Superblock: update to reflect core changes
+	- Rendezvous: implement static marker proximity alert
+	- Phpmailer: security update
+
+Hubzilla 2.0 (2016-12-23)
+	- Deprecate bb_iframe
+	- Note widget: resize the textarea to reveal full content
+	- Implement fixed left aside
+	- Implement lockview for wikilist
+	- Simplify wikilist widget
+	- Router error reporting
+	- Setup changes to check for shell_exec and exec functions
+	- Extensible permissions upgrade handling for channels with custom permission roles
+	- Allow plugins to cancel item_store() and item_store_update()
+	- ZOT version 1.2 provides negotiation of cryptographic algorithms
+	- Provide a fresh new look and cleaner layout and more relevant information to siteinfo
+	- Introduce highlight bbcode [hl]
+	- Implement wiki mimetypes markdown or bbcode
+	- Doc pages refactoring
+	- Update webpages and wiki context help
+	- Make a git commit when a new wiki page is created
+	- Prev-next navigation for mod_connedit to ease bulk connection edits
+	- Move the remote user homebutton to the user menu
+	- Do not render maps/locations for Diaspora destinations
+	- Provide 'per-page' caching for is_matrix_url() results to reduce duplicate queries
+	- Don't send notification for posts/comments on old conversations that were refetched after having expired
+	- Numerous wiki UI improvements
+	- Move twitter api to addon
+	- Cleanup and re-organise the voting and attendance buttons
+	- Reorganise emoticons
+	- Collapse navbar-collapse-1 if avatar menu is clicked.
+	- New display setting: static page update as opposed to live update
+	- Command line administrative channel connect utility
+	- Modernise chanview
+	- Implement edit activities to share post/comment edits with protocols which do not support them (e.g. Diaspora)
+	- Wiki export
+	- Numerous postgres compatibility fixes
+	- Remove requirement that imported profile photos be in the profile photos album
+	- Change event behaviour - share by default.
+	- Use PDO database driver exclusively (deprecate drivers that are separately maintained)
+	- Zot API re-write and extended
+
+	Bugfixes
+	- Fix z_fetch_url() incorrect variable
+	- Fix SQL error with app categories
+	- Fix do not show revert buttons if we do not have write perms
+	- Fix dropdown positions
+	- Fix do not increase opacity to more than 1
+	- Fix clone sync missing for some item delete operations
+	- Fix embed-image for fullscreen mode
+	- Fix attach_list_files()
+	- Fix full screen for embedded videos
+	- Fix the forum widget for forums with custom perms
+	- Fix issue #607 parens not recognised inside urls
+	- Fix pubsites: don't list dead sites
+	- Fix issue #596 silence headers already sent warning
+	- Fix missing plugins in zot-info
+	- Fix notification issue
+	- Fix issue #594 like of thing appears as profile owner like
+	- Fix export issue
+	- Fix checklist bbcode - only turn [] and [x] into checkboxes if it is found inside a checklist
+	- Fix wiki permissions issues
+	- Fix public calendar leaks connection information (birthdays) when view_contacts is not allowed
+	- Fix attach_rename: flaw in duplicate filename detection resulted in filename(1)(1)(1).ext
+	- Fix a fatal error with incorrect DB object access
+	- Provide /locs link on settings page if there is more than one hubloc for this channnel *that isn't deleted*.
+	- Fix issue #577 if connecting to a channel that is already pending, undo the pending and set connect permissions accordingly
+	- Fix issue #575, when 'nofinish' is set on an event, invalid date was generated/stored
+	- Fix bbcode event formatting issue
+	- Fix zot_finger from navbar people search looping
+	- Fix fromStandalonePermission()
+
+	Plugins
+	- GNU Social: removed from addons for security reasons - it might be re-implemented once it is properly reviewed
+	- Diaspora: missing item author when diaspora public comment received from relay
+	- Superblock: refactoring
+	- New addon: tripleaes for pro
+	- Cdav:  "if not exists" only supported starting with postgresql v. 9.5 debian stable has 9.4
+	- Rendezvous: added markers and members export tool at /rendezvous/[group_id]/export/{markers,members}
+	- Twitter: move twitter api to addon
+	- New addon: b2tbtn (back to top button)
+	- Diaspora: import public diaspora messages to sys if applicable
+	- Diaspora: try and handle singletons better and simplify the associated notifier decisions
+	- Rendezvous: add proximity alert feature to members to issue notification when member is within a specified distance.
+	- New addon: diaspora_reconnect to refriend diaspora/friendica connections from a clone or channel move
+	- Diaspora: change the logic for deciding between upstream and downstream message flow for notifier plugins
+	- Rendezvous: prompt member to share their location by activating the GPS control using a tooltip and pulsing visibility
+	- statistics_json: fix nodeinfo
+	- Rendezvous: restored the lost gps-icon.png and corrected the OpenStreetMap tile server URL to avoid insecure content warnings
+	- Rendezvous: use observer name if available
+	- std_embeds: missing backslash
+	- Diaspora: postgres fixes issue #31
+	- Rendezvous: added marker list with centering buttons and popup open.
+	- Rendezvous: added control to see list of members sharing their location, with buttons to pan the map to center them
+	- Diaspora: system level diaspora toggle
+	- Rendezvous: added control that displays members.
+	- Diaspora: rename diaspora2bb() to markdown_to_bb() in core
+	- Hubwall: remove illegal unescaped angle chars
+	- Rendezvous: Add control to delete member if not updated in over 14 minutes
+
+Hubzilla 1.14 (2016-10-13)
+	- New hook bbcode_filter
+	- Unify the various mail sending instance to enotify::send() and z_mail()
+	- Provide ability for admin to change account password
+	- Replace deprecated Sabre functions
+	- Add plugin hook for 'get_profile_photo'
+	- Convert NULL_DATE to a legal date for compatibility with MySQL strict mode
+	- Allow a site to over-ride the help table-of-contents files
+	- Autoscroll to target post/comment when in single-thread mode
+	- Indicator for own response verb activity
+	- Add server role documentation
+	- Pro: remove 'Additional Features' link for techlevel 0
+	- Upgrade fullcalendar library to version 3
+	- Whitelist button tag in htmlpurifier
+	- Upgrade justifiedGallery library to version 3.6.3
+	- Pubsites improvements
+	- Upgrade foundation library to version 6.2.3
+	- Ability to move photos to another album
+	- Submodules for settings page
+	- Submodules for admin page
+	- Remove chatroom suggestions
+	- Revamped and improved theme select backend
+	- Theme preview
+	- Implement techlevels for pro server role
+	- BBcode checklist
+	- Improve save to folder modal dialog
+	- Case insensitive sort apps
+	- Add authors to post distribution
+	- Redirect to plugin page after enabling to show configuration settings if applicable
+	- Move allowed email domains to admin->security page
+	- Display text around the searched query in documentation search
+	- Comanche observer conditionals
+	- Remove ratings
+	- Context help for /connedit
+	- Provide configurable sidebar table-of-contents indexes for different levels of the help hierarchy
+	- Comanche conditionals
+	- Cover photo enhancements (does not disappear after initial scrolldown)
+	- Website import/export
+	- Server roles (basic, standard and pro)
+
+	Bugfixes
+	- Fix connected time not shown on ajax loaded connections
+	- API issues
+	- Fix readmore.js collapsing on scrolldirection change in some mobile browsers
+	- Personalize Server Emails
+	- Audio player doesn't automatically show for m4a files
+	- Fix ajax page update with /channel?f=&mid=hash
+	- Angle bracket characters in DB password not recognised
+	- Regression: files/photos were not synchronising to channel clones properly
+	- Missing categories in preview mode
+	- attach_store() sql issue
+	- Rename id share_container to distr_container - share_container seem to be blacklisted in various security browser plugins
+	- Add 'map' extension to files served natively by nginx without using the project controller
+	- Zot discovery wasn't returning in all cases (after discovering zot)
+	- Do not show hidden channels in /randprof
+	- Numerous postgres fixes
+	- Illegal offset errors in include/conversation:status_editor() when no permissions array is passed
+	- Patch foundation-6.2.3 to work with jquery-3.1
+	- Custom/expert permissions bug
+	- Mail: return array instead of object
+	- Don't send purge_all notification to self
+	- Saved search: tags and connection searches weren't being saved
+	- Do not allow PERMS_PUBLIC as a choice for writable permission limits
+	- Force cover photos as well as profile photos to be public. As a side effect 'thing' photos will also be considered public
+	- Make lock switching actually work with multiple acl forms
+	- Create smarty dir before any templates can be initialised
+	- Fix aconfig
+	- Broken doc search
+	- Public forum check with custom/expert permissions
+
+	Plugins
+	- Standard Embed: update to convert old corporate bbcodes
+	- Cdav security: fix rw permission check
+	- Cdav: add partial support for recurring events in the browser client (editing/creating is not implemented)
+	- New plugin phpmailer: use phpmailer class instead of php's built-in mail() function
+	- Diaspora: third party on other network comment issue
+	- Diaspora: comment fix (hubzilla originated comment with plugin activated by comment author not making it to Diaspora)
+	- Cdav: provide calendar list view
+	- Diaspora: allow comments on public diaspora posts which were imported by subscribing to public tags.
+	- Wppost: add blog_id parameter for WordPress MU sites such as WordPress.com
+	- Wppost: don't log the password in normal mode
+	- Hubwall: provide choice of sender addresses, the real admin email, postmaster, or noreply.
+	- Chord: General cleanup of chord app
+	- Chord: Update chord binary for modern linux systems
+	- Start grouping addons by server_role
+
+Hubzilla 1.12
+	- extensible permissions so you can create a new permission rule such as "can write to my wiki" or "can see me naked".
+	- guest access tokens can do anything you let them, including create posts and administer your channel
+	- ACLs can be set on files and directories prior to creation.
+	- ACL tool can now be used in multiple forms within a page
+	- a myriad of new drag/drop features (drop files or photos into /cloud or a post, or drop link into a post or comment, etc.)
+	- multiple file uploads
+	- improvements to website import
+	- UNO replaced with extensible server roles
+	- select bbcode elements (such as baseurl) supported in wiki pages
+	- addons:
+    	Diaspora Protocol - additional updates to maintain compatibility with 0.6.0.0 and stop showing likes as wall-to-wall comments (except when the liker does not have any Diaspora protocol ability)
+    	Cdav - continued improvements to the web UI
+    	Pong - the classic pong game
+    	Dfedfix - removed, no longer needed
+    	Openid - moved from core to addon
+	- bugfixes
+    	unable to delete privacy groups
+    	weird display interaction with code blocks and escaped base64 content containing 8 - O
+    	workaround WordPress oembeds which are almost completely javascript and therefore filtered
+    	restrict oembed cache url to 254 chars to avoid spurious failures caching google map urls
+    	"Page not found" appeared twice
+    	birthdays weren't being automatically added to event calendar
+    	some iCal entries had malformed descriptions
+
+Hubzilla 1.10
+	Wiki:
+		Lots of enhanced functionality, usability improvements, and bugfixes from v1.8
+		Turned into an optional feature (default on) but disabled in UNO
+	Sync:
+		Items are now relocated (links patched) when syncing to clones
+	Access Tokens:
+		New feature - allows members to create access controlled guest logins and create/share 'dropbox' style links to protected resources.
+	UI:
+		Use icons instead of iconic text constructs
+		Only request geolocation permission when creating a post, not on page load
+		provide 'redeliver' option on Delivery Report page for when things really stuff up
+		CalDAV/CardDAV management pages with heaps of functionality
+	Lib:
+		z_fetch_url() updated to accept different request methods and request bodies
+		item_store(), item_store_update() now return the stored items
+		vcard microformat changes to remain spec compliant
+		microformat meta tags added to post/comments
+		AbConfig API changed to use channel_id rather than channel_hash, which was overly complicated to use
+		SuperCurl class added to provide a framework for re-use of obscure CURL options
+		Allow absolute links to CSS/JS files on CDN
+		Add Let'sEncrypt intermediate cert to lib in case you forget to install it on the server
+		Update fullcalendar and jquery (3.1) libs
+		Update sabre/dav to 3.2.0
+		Change content export from a month/year system to begin/end
+		Use streaming I/O for delivering large photos
+		Allow multiple App description files in a single plugin directory
+		optimise a couple of troublesome/inefficient SQL queries
+		avoid sending clone sync packets to dead sites
+	Resolved Issues:
+		channel home page not providing content to clients with javascript disabled
+		Replace '@' obfuscation with html entity rather than the unicode look-alike
+		xchan_query() failing to detect duplicates, resulting in inefficient queries
+		issues with 'use existing photo' for profile photo
+		layout editor "list all layouts" returned empty
+		oembed - better detect video file URLs so they aren't loaded into memory.
+		handcrafted bbcode tables could end up with way too much whitespace due to CRLF translation
+		refresh permissions whitescreen in 1.8
+		force immediate profile photo update on local site
+		regression: 'save bookmarks' post action missing
+
+Hubzilla 1.8
+	Administration:
+		Cleanup and resolve some edge cases with addon repository manager
+		Provide sort field and direction on all fields of account and channel administration tables
+		Rename 'user' administration to account administration to reflect its true purpose
+		'safemode' tool to quickly disable and re-enable addons during a hypothetical upgrade crisis
+	Security:
+		Edited comments to private posts could lose their privacy settings under some circumstances
+		Provide zot-finger signatures to prevent a possible but rare exploit involving DNS spoofing and phishing
+	ACL selections:
+		Various improvements to the ACL editor to further simplify the concepts and make it more intuitive
+	Chat:
+		Notifications of chatroom activity using standard browser notification interfaces.
+	Themes:
+		Allow a theme:schema string to represent a valid theme name. This fixes issues with setting schemas on site themes.
+	Pubsites:
+		Show server role (identify UNO or basic sites as opposed to hubzilla pro) and link to statistics
+	Documentation:
+		Clarify privacy rights of commenters w/r/t conversation owners, as this policy is network dependent.
+	Wiki (Git backed):
+		Brand new feature. We'll call it experimental until it has undergone a bit more testing.
+	Account Cloning:
+		Regression on clone channel creation created a new channel name each time.
+		New issue (fixed) with directory creation on cloned file content
+	Content Rendering:
+		Add inline code (in addition to the existing code blocks) to BBcode
+		Add emoji reactions
+		Add emojis as extended smilies with auto-complete support
+		Emoji added as feature so it can be enabled/disabled and locked
+		Ability to configure the standard reactions available on a site basis
+		Disable 'convenience' ajax autoload on pgdn key, as it could lead to premature memory exhaustion
+	Photos:
+		Change album sort ordering, allow widgets and plugins to define other orderings
+	Apps:
+		Synchronise app list with changes to system apps
+		Preserve existing app categories on app updates/edits
+		Regression: fixed translated system app names
+	Architecture:
+		Provide autoloaded class files and libraries for plugins.
+		Further refactoring of session driver to sort out some cookie anomolies
+		Experimental PDO database driver
+		Creation of Daemon Master class and port all daemon (background task) interfaces to use it
+		Create separate class for each of 'Cron', 'Cron daily', and 'Cron weekly'.
+		Always run a Cron maintenance task if not run in the last four hours
+		Refactor the template classes
+		Refactor the ConversationItem mess into ThreadItem and ThreadStream
+		Refactor Apps, Enotify, and Chat library code
+		Refactor the various Config libraries (Config, PConfig, XConfig, AConfig, AbConfig, and IConfig)
+		Created WebServer class for top level
+		Remove mcrypt dependencies (deprecated in PHP 7.1)
+		Remove all reserved (including merely 'not recommended') words as DB table column names
+		Provide mutex lock on DB logging to prevent recursion under rare failure modes.
+	Bugfixes:
+		Remove db_close function on page end - not needed and will not work with persistent DB connections.
+		Undefined ref_session_write
+		Some session functions needed to be static to work with CalDAV/CardDAV
+		CLI interface: argc and argv were reversed
+		HTML entities double encoded in edited titles
+		Prevent delivering to empty recipients
+		Sabre library setting some security headers for SAML after we've emitted HTML content
+		Always initialise miniApp (caused obscure warning message if not set)
+		Block 'sys' channels from being 'random profile' candidates
+		DB update failed email could be sent in the wrong language under rare circumstances
+		Openid remote authentication used incorrect namespace
+		URL attached to profile "things" was not linked, always showing the "thing" manage page
+		New connection wasn't added to default privacy group when "auto-accept" was enabled
+		Regression: iconfig sharing wasn't working properly
+	Plugins:
+		CalDAV/CardDAV plugin provided
+		Issue sending Diaspora 'like' activities from sources that did not propagate the DCV
+		Allow 'superblock' to work across API calls from third party clients
+		statistics.json: use 'zot' as protocol
+		Issues fixed during testing of ability to follow Diaspora tags
+		Parse issue with Diaspora reshare content
+		Chess: moved to main repo, ported to 1.8
+
+Hubzilla 1.6
+	Cleanup and standardise the interfaces to the "jot" editor
+	Router re-written to support calling class object methods as controllers
+	All existing modules (160+) re-written as object classes
+	Plugin hook interface adapted to call static class methods
+	Context help improved dramatically with content for the most accessed pages.
+	Reverted a compatibility change to support GNU-social events. We copied their feed format and their feed format is wrong (XML namespace collisions).
+	Provide a querystring attribute to CSS/JS resources to avoid caching issues when our code changes (which is often).
+	Fix javascript detection and allow either positive or negative detection.
+	Refactor the plugin hook registration procedure, provide 'unregister all' ability.
+	Fix RSD (Real Simple Discovery) which has been broken for some time.
+	Update smarty library to 3.1.29
+	Update jquery.textcomplete to 1.3.4
+	Update font-awesome to 4.6.1
+	Update SabreDAV to 3.0 (PHP version requirements prevent us from pushing it further at this time)
+	Help text added to cmdline utilities config and pconfig
+	Reworking of the database logging facility to avoid the rare but troublesome recursion when the log facility needed to query the DB internally to obtain config parameters.
+	Implement singleton delivery (emulate nomadic identity to singleton networks and services)
+	Fix empty album name in photo activities when photo is stored in top level folder.
+	Allow engineering units to be used in service class data size restrictions (400M, 1G, etc.)
+	Lots of work on bbcode auto-completion
+	Admin interface provided to manage external resource repositories
+ 	Oembed security reworked. Now all sources are filtered by default unless blocked.
+	Remove the date-string version and use only STD_VERSION
+	Add categories and categorisation filtering and the ability to edit all apps (including system apps) for a given channel
+	Ensure the ability to translate names of all system apps (except those provided in addons)
+	Provide ability to add categories to content from channel sources
+	Lots of work on the presentation of the ACL widget to enhance usability and intuitiveness
+	Allow somebody to follow a channel from a pasted redress containing a Unicode lookalike of the @ sign.
+	Add conditional syntax to Comanche (if/then/else)
+	Convert Comanche to an object class
+	Removed IE6 compatibility code
+	Explicitly close DB on shutdown/exit instead of allowing it to close naturally
+	Allowed delayed publish of webpages
+	Show current repository versions of master and dev on admin page and warn if your installation has fallen behind master
+	Provide some extra security checks to import data and files to prevent mischief
+	Block CalDAV/CardDAV namespace reserved words from being used as a channel nickname/redress since Sabre is somewhat inflexible in this regard
+	Plugins:
+		Diaspora
+			markdown translator work needed to eradicate the Diaspora Comment Virus.
+			upgrade all inbound paths with the most recent protocol changes (several of these)
+			convert 'diaspora_meta' (Diaspora Comment Virus) to iconfig and eradicate from sites with Diaspora disabled
+			implement social relay and allow following tags
+			upgrade statistics.json to NodeInfo. Currently hubzilla sites are tagged as 'redmatrix' because the NodeInfo schema lacks extensibility and project names are used to designate protocol compatibility rather than protocol names.
+		Std-embeds
+			New addon to allow a handful of corporate providers to run unfiltered embed code (youtube, vimeo, soundcloud)
+		Various:
+			upgrade font-awesome icons and adapt a few addons to Objects and the new hook interface and new controller interface
+
+Hubzilla 1.4
+	[This list may appear brief, but encompasses a huge amount of re-writing and re-factoring
+	of the internal code structure to gain long-term performance and stability and provide a standard
+	interface to alternate protocol federation plugins which were made possible by the UNO configuration.
+	UNO is a configuration of hubzilla introduced in 1.3 with reduced complexity and which provides
+	improved protocol federation potential to other networks by virtue of removing nomadic identity
+	(which is not possible to model or work around using other network protocols).]
+
+	Implement channel move operation for UNO configuration
+	Remove bookmark references in UNO (which has no bookmarks by default)
+	UI cleanup profiles/chat/manage
+	Refactor webfinger probes and salmon backend for GNU-social federation
+	SECURITY: DAV authentication exploit
+	Context help added
+	More help pages
+	Provide 'posts only' feed
+	Refactor App to remove globals
+	Refactor Session to remove globals
+	provide a fullscreen mode for selected modules and functions
+	Regression: some addon routes broken
+	fix "remember me"
+	Autocomplete tool extended to bbcode/comanche
+	Clone sync of file/photo updates
+	system rename (e.g. http to https or DNS name change) missing some connection photos
+	calendar module not blocked to public whhen block_public enabled
+	Use timeago.js in reshare content so that timestamps will be correct on federated reshares
+	Rework detection of JavaScript to avoid reload penalty under normal operation
+	Changed primary directory server to a hubzilla server
+	Plugins:
+		Diaspora - switch to alternate XML parser to avoid storing compound objects
+		GNU-Social - Huge amounts of work, federation somewhat working now, several issues remain
+		Friendica - Initial federation work (not yet published)
+
+Hubzilla 1.3
+	Admin Security configuration page created which consolidates several previously hidden settings:
+		Communication white/black lists
+		Channel white/black lists
+		OEmbed white/black lists
+	Admin Profile Fields page created which manages the availability and order of standard profile fields and allows new fields to be created/managed
+	"Poke" module reworked - page UI updated and "poke basic" setting introduced which limits the available poke "verbs".
+	"Mood" module UI reworked
+	"profile_photo" module UI reworked
+	"cover_photo" module UI reworked
+	"new_channel" module UI reworked
+	"register" module UI reworked
+	"pubsites" module UI reworked
+	item-meta ("iconfig") created which implements arbitrary storage for item metadata for plugins
+	abook-meta ("abconfig") created which implements arbitrary storage for connection metadata for plugins
+	"Strict transport security header" made optional as it conflicts with some existing Apache/nginx configurations
+	"Hubzilla UNO" (Hubzilla with radically simplified and locked site settings) implemented as an install configuration.
+	.well-known directory conflict worked out to support LetsEncrypt cert ownership checks without disrupting webfinger and other internal uses of .well-known
+	Lots of work on 'zcards' which are self-contained HTML representations of a channel including cover photos, profile photos, and some text information
+	Long standing bug uncovered which failed to properly restrict the lower time limit for public feed requests
+	A number of fixes to "readmore" to fix page jumping
+	Bugfix: persons other than the channel owner who have permission to upload photos to a channel could not do so if the js_upload plugin/addon was enabled
+	Siteinfo incorrectly identifying secondary directory servers
+	Allow admin to set and lock features when UNO is configured
+	Atom feeds: alter how events are formatted to be compatible with GNU-social
+	Allow guest/visitor access to view personal calendar
+	Moved several more classes to "composer format" and provided an autoloader.
+	Bugfix: require existing password to change password
+	Bugfix: allow relative_date() to be translated to Polish which has more than two plural forms.
+	Plugin API: add "requires" keyword to module header to indicate dependent addons
+	ActivityStreams improvements and cleanup: photo and file activities
+	UI cleanup for editing profile when multiple profiles enabled
+	Removed the "markdown" feature as there are numerous issues and no maintainer.
+	Provide "footer" bbcode to ease theming of post footer content
+	Bugfix: install issues caused by composer code refactor and typo in postgres load file
+	Plugins:
+		keepout - "block public on steroids"
+		pubsubhubbub - provides PuSH support to Atom feeds, required for GNU-social federation
+		GNUsocial protocol - under development
+		Diaspora protocol - some work to ease migration to the new signing format
+		Diaspost - disabled; numerous issues and no maintainer
+		smileybutton - theme work and fixed compatibility with other jot-tools plugins
+
+
+Hubzilla 1.2
+	Provide extra HTTP security headers (several of them).
+	Allow a site to disable delivery reports if disk space is limited
+	Regression: Wrong theme when viewing single post as non-member
+	Some Diaspora profile photos use relative URLs - force absolute
+	Add locked features to siteinfo report to aid remote debugging
+	Provide version compatibility checking to plugins (minversion, maxversion, and minphpversion)
+	Account config storage
+	Provide optional integrated registration and channel create form
+	cli utility for managing addons
+	issue with sharing photo "items"
+	cover photo manager: upload, crop, and store
+	cover photo widget created
+	rework the connections list page and provide a few management features there
+	fixed issue with Comanche layout definitions loaded by plugins
+	provide ability to separate delivery functions from item_store() and item_store_update() - some forum messages were being redelivered when cloned.
+	call build_sync_packet() on pdledit changes
+	Abstract the project name and version so these can be customised or removed
+	Allow hiding the ratings links on a per-site basis
+	db_type not present in international setup templates - was unable to choose postgres.
+	item_photo_menu logically divided into a) actions on the post, b) actions related to the author
+	bug: default channel not reset to 0 when last channel removed
+	create widget containing only the contact block
+	regression: public forums granted send stream permissions to connections
+	workaround Firefox's refusal to honour disabling autocomplete of passwords
+	regression: photo's uploaded to a channel by a guest (with file write permissions) not saved correctly.
+	provide mechanisms for custom .well-known handlers (needed for LetsEncrypt ownership verification)
+	proc_run modified to use exec() instead of proc_open() - causing issues on some PHP installations
+	remote delegation failure under a specific set of circumstances which we were finally able to duplicate
+	Delegation section of Channel Manager was missing names and contained useless notification icons.
+	Change "expire" channel setting to show system limit if there is one.
+	Regression: provide a one-click ignore of pending connection
+	Config to control directory keyword generation on client and server.
+	"Collections" renamed to "Privacy Groups", documentation improved
+	widget_item - allow use of page title instead of message id
+	Add site black/white list checking to all .well-known services
+	reduce incidents of screen jumping when "showmore" is activated
+	add oembed provider for photos
+
+	Addons:
+
+	CSS theming of pageheader plugin
+	xmpp addon ported from Friendica
+	Diaspora private mail issues after the third reply
+	Occasional issue with Diaspora connection requests
+	Add notification email to Diaspora PMs
+	Allow anonymising platform and version for statistics
+	msgfooter addon created
+	removed embedly plugin
+	sync clones after superblock addition
+	"keepout" plugin created
+
+
+Hubzilla 1.1
+
+	Rewrote and simplified the Queue manager and delivery system
+	Rewrote and simplified the outer layers of the Zot protocol
+	Use a standard version numbering scheme in addition to the snapshot tags
+	Provide a channel blacklist for blocking channels with abusive or illegal content at the hub level
+	Make the black/white lists pluggable
+	Update template library
+	Support for letsencrypt certs in various places
+	Cleanup of login and register pages
+	Better error responses for permission denied on channel file repositories
+	Disabled the public stream by default for new installs (can be enabled if desired)
+	Cleanup of API authentication and rework the old OAuth1 stuff
+	Add API "status with media" support compatible with Twitter and conflicting method for GNU-social
+	Rework photo ActivityStreams objects to align better with ActivityStreams producers/consumers
+	Several minor API fixes to work better with AndStatus client
+	Invitation only site - experimental support added, needs more work
+	Fix delivery loop condition due to corrupted data which resulted in recursive upstream delivery
+	Provide more support for external (git) widget collections.
+	Extend the Queue API to 3rd-party network addons which have experienced downtime recently.
+	Regression: Inherited permissions were not explicitly set
+	Regression: "Xyz posted on your wall" notification sent when creating webpages at another channel
+	Regression: Custom permissions not pre-populated on channel creation with named role.
+	Provide "Public" string when a post can be made public, instead of "visible to default audience"
+	Allow hub admin to specify a default role type for the first channel created, reducing complexity
+	Ability for a hub admin to set feature defaults and lock them, reducing complexity
+	Change default expiration of delivery reports to 10 days to accomodate sites with reduced resources
+	Addons/Plugins:
+		Pageheader addon ported from Friendica
+		Hubwall (allow admin to send email to all accounts on this hub) created
+		GNU-social - queueing added
+		Diaspora - fixes for various failures to update profile photos, updates to queue API
+		Cross Domain Authenticated Chess (Andrew Manning's repository)
+
+	And... the normal "lots of bugs fixed, translations updated, and documentation improved"
+
+
+

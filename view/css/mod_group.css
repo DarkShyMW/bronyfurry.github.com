@@ -1,0 +1,19 @@
+.mpall,
+.mpgroup {
+	line-height: 1.2;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+#groups-index th:nth-child(1),
+#groups-index td:nth-child(1){
+	white-space: nowrap;
+	padding: 7px 3px 7px 10px;
+}
+
+#groups-index th:nth-child(2),
+#groups-index td:nth-child(2){
+	text-align: center;
+	padding: 7px 10px 7px 7px;
+}

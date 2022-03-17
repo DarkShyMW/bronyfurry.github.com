@@ -1,0 +1,7 @@
+version: 5
+url: $baseurl/permcats
+requires: local_channel
+name: Contact Roles
+photo: icon:user-o
+categories: Access Control
+desc: Create and manage custom contact roles.

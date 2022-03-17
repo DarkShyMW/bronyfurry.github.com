@@ -1,0 +1,22 @@
+.make-default-link,
+.make-default-link:hover {
+	color: inherit;
+	text-decoration: none;
+}
+
+.channel-photo-wrapper {
+	display: table-cell;
+	table-layout: fixed;
+	vertical-align: top;
+}
+
+.channel-photo-wrapper img {
+	border-radius: 4px;
+}
+
+.channel-notifications-wrapper {
+	display: table-cell;
+	table-layout: fixed;
+	vertical-align: top;
+	padding-left: 10px;
+}
